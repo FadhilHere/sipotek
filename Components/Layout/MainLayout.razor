@@ -1,42 +1,26 @@
-﻿@using MudBlazor
+﻿<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
 
-<MudThemeProvider />
-<MudDialogProvider />
-<MudSnackbarProvider />
+    <main>
+        <div class="top-row px-4">
+            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+        </div>
 
-<MudLayout>
-    <MudAppBar Elevation="1">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" OnClick="@((e) => DrawerToggle())" />
-        <MudText Typo="Typo.h6">SIPOTEK - Sistem Apotek</MudText>
-        <MudSpacer />
-        <MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Inherit" />
-    </MudAppBar>
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
 
-    <MudDrawer @bind-Open="_drawerOpen" Elevation="2">
-        <MudNavMenu>
-            <MudText Typo="Typo.h6" Class="px-4">SIPOTEK</MudText>
-            <MudText Typo="Typo.body2" Class="px-4 pb-4">Admin Panel</MudText>
-
-            <MudNavLink Href="/" Icon="@Icons.Material.Filled.Dashboard">Dashboard</MudNavLink>
-            <MudNavLink Href="/obat" Icon="@Icons.Material.Filled.Medication">Manajemen Obat</MudNavLink>
-            <MudNavLink Href="/transaksi" Icon="@Icons.Material.Filled.SwapHoriz">Transaksi</MudNavLink>
-            <MudNavLink Href="/laporan" Icon="@Icons.Material.Filled.Assessment">Laporan</MudNavLink>
-        </MudNavMenu>
-    </MudDrawer>
-
-    <MudMainContent Class="pa-4">
-        <!-- INI YANG PENTING - GANTI @Body JADI @ChildContent -->
-        @ChildContent
-    </MudMainContent>
-</MudLayout>
-
-@code {
-    [Parameter] public RenderFragment? ChildContent { get; set; }
-
-    bool _drawerOpen = true;
-
-    void DrawerToggle()
-    {
-        _drawerOpen = !_drawerOpen;
-    }
-}
+<div id="blazor-error-ui">
+    <environment include="Staging,Production">
+        An error has occurred. This application may no longer respond until reloaded.
+    </environment>
+    <environment include="Development">
+        An unhandled exception has occurred. See browser dev tools for details.
+    </environment>
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>
