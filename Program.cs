@@ -1,4 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using MudBlazor.Services;
 using SIPOTEK.Components;
+using SIPOTEK.Data;
 
 namespace SIPOTEK
 {
@@ -11,6 +14,13 @@ namespace SIPOTEK
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
+
+            // Add Entity Framework
+            builder.Services.AddDbContext<SipotekDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            // Add MudBlazor services
+            builder.Services.AddMudServices();
 
             var app = builder.Build();
 
