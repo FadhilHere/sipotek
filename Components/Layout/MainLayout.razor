@@ -4,157 +4,38 @@
 <MudDialogProvider />
 <MudSnackbarProvider />
 
-<div class="page">
-    <div class="sidebar">
-        <!-- Sidebar content -->
-        <MudDrawer Open="_drawerOpen"
-                   Elevation="2"
-                   Variant="@DrawerVariant.Persistent"
-                   Width="240px">
-            <div class="d-flex flex-column" style="height: 100vh;">
-                <!-- Sidebar Header -->
-                <div class="pa-4">
-                    <MudText Typo="Typo.h6" Color="Color.Primary">
-                        <MudIcon Icon="@Icons.Material.Filled.LocalPharmacy" Class="mr-2" />
-                        SIPOTEK
-                    </MudText>
-                    <MudText Typo="Typo.body2" Color="Color.Secondary">Admin - Apoteker</MudText>
-                </div>
-                
-                <MudDivider />
-                
-                <!-- Navigation Menu -->
-                <MudNavMenu>
-                    <MudNavLink Href="/"
-                                Icon="@Icons.Material.Filled.Dashboard"
-                                IconColor="Color.Primary">
-                        Dashboard
-                    </MudNavLink>
-                    
-                    <MudNavLink Href="/obat"
-                                Icon="@Icons.Material.Filled.Medication"
-                                IconColor="Color.Success">
-                        Manajemen Obat
-                    </MudNavLink>
-                    
-                    <MudNavGroup Text="Transaksi"
-                                 Icon="@Icons.Material.Filled.SwapHoriz"
-                                 IconColor="Color.Info">
-                        <MudNavLink Href="/transaksi/masuk"
-                                    Icon="@Icons.Material.Filled.ArrowDownward"
-                                    IconColor="Color.Success">
-                            Obat Masuk
-                        </MudNavLink>
-                        <MudNavLink Href="/transaksi/keluar"
-                                    Icon="@Icons.Material.Filled.ArrowUpward"
-                                    IconColor="Color.Warning">
-                            Obat Keluar
-                        </MudNavLink>
-                    </MudNavGroup>
-                    
-                    <MudNavLink Href="/laporan"
-                                Icon="@Icons.Material.Filled.Assessment"
-                                IconColor="Color.Secondary">
-                        Laporan
-                    </MudNavLink>
-                </MudNavMenu>
-                
-                <MudSpacer />
-                
-                <!-- Footer -->
-                <div class="pa-4">
-                    <MudText Typo="Typo.caption" Color="Color.Secondary">
-                        © 2024 SIPOTEK
-                    </MudText>
-                </div>
-            </div>
-        </MudDrawer>
-    </div>
+<MudLayout>
+    <MudAppBar Elevation="1">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" OnClick="@((e) => DrawerToggle())" />
+        <MudText Typo="Typo.h6">SIPOTEK - Sistem Apotek</MudText>
+        <MudSpacer />
+        <MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Inherit" />
+    </MudAppBar>
 
-    <main>
-        <!-- Top Bar -->
-        <div class="top-row px-4">
-            <MudIconButton Icon="@Icons.Material.Filled.Menu"
-                           Color="Color.Primary"
-                           OnClick="@(() => DrawerToggle())" />
-            
-            <MudText Typo="Typo.h6" Color="Color.Primary" Class="ml-3">
-                SIPOTEK - Sistem Apotek
-            </MudText>
-            
-            <div class="ml-auto">
-                <MudIconButton Icon="@Icons.Material.Filled.Notifications"
-                               Color="Color.Primary" />
-                <MudIconButton Icon="@Icons.Material.Filled.AccountCircle"
-                               Color="Color.Primary" />
-            </div>
-        </div>
+    <MudDrawer @bind-Open="_drawerOpen" Elevation="2">
+        <MudNavMenu>
+            <MudText Typo="Typo.h6" Class="px-4">SIPOTEK</MudText>
+            <MudText Typo="Typo.body2" Class="px-4 pb-4">Admin Panel</MudText>
 
-        <!-- Main Content -->
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
+            <MudNavLink Href="/" Icon="@Icons.Material.Filled.Dashboard">Dashboard</MudNavLink>
+            <MudNavLink Href="/obat" Icon="@Icons.Material.Filled.Medication">Manajemen Obat</MudNavLink>
+            <MudNavLink Href="/transaksi" Icon="@Icons.Material.Filled.SwapHoriz">Transaksi</MudNavLink>
+            <MudNavLink Href="/laporan" Icon="@Icons.Material.Filled.Assessment">Laporan</MudNavLink>
+        </MudNavMenu>
+    </MudDrawer>
 
-<style>
-    .page {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-    }
-
-    .sidebar {
-        background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
-    }
-
-    .top-row {
-        background-color: #f7f7f7;
-        border-bottom: 1px solid #d6d5d5;
-        display: flex;
-        align-items: center;
-        padding: 1rem;
-    }
-
-    .content {
-        flex: 1;
-    }
-
-    @media (max-width: 640.98px) {
-        .top-row {
-            justify-content: space-between;
-        }
-
-        .top-row a, .top-row .btn-link {
-            margin-left: 0;
-        }
-    }
-
-    @media (min-width: 641px) {
-        .page {
-            flex-direction: row;
-        }
-
-        .sidebar {
-            width: 250px;
-            height: 100vh;
-            position: sticky;
-            top: 0;
-        }
-
-        .top-row {
-            position: sticky;
-            top: 0;
-            z-index: 1;
-        }
-    }
-</style>
+    <MudMainContent Class="pa-4">
+        <!-- INI YANG PENTING - GANTI @Body JADI @ChildContent -->
+        @ChildContent
+    </MudMainContent>
+</MudLayout>
 
 @code {
-    private bool _drawerOpen = true;
+    [Parameter] public RenderFragment? ChildContent { get; set; }
 
-    private void DrawerToggle()
+    bool _drawerOpen = true;
+
+    void DrawerToggle()
     {
         _drawerOpen = !_drawerOpen;
     }
