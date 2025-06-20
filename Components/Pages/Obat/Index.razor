@@ -1,0 +1,62 @@
+﻿@page "/obat"
+@rendermode InteractiveServer
+
+<PageTitle>Manajemen Obat</PageTitle>
+
+<MudText Typo="Typo.h4" Class="mb-4">Manajemen Obat</MudText>
+
+<MudCard>
+    <MudCardHeader>
+        <CardHeaderContent>
+            <MudText Typo="Typo.h6">Daftar Obat</MudText>
+        </CardHeaderContent>
+        <CardHeaderActions>
+            <MudButton Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       StartIcon="@Icons.Material.Filled.Add"
+                       OnClick="OpenCreateDialog">
+                Tambah Obat
+            </MudButton>
+        </CardHeaderActions>
+    </MudCardHeader>
+
+    <MudCardContent>
+        <MudTable Items="@ObatList" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@Loading">
+            <HeaderContent>
+                <MudTh>Nama Obat</MudTh>
+                <MudTh>Jenis</MudTh>
+                <MudTh>Bentuk</MudTh>
+                <MudTh>Harga</MudTh>
+                <MudTh>Stok</MudTh>
+                <MudTh>Tanggal Kadaluarsa</MudTh>
+                <MudTh>Aksi</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Nama Obat">@context.NamaObat</MudTd>
+                <MudTd DataLabel="Jenis">@context.JenisObat</MudTd>
+                <MudTd DataLabel="Bentuk">@context.BentukObat</MudTd>
+                <MudTd DataLabel="Harga">Rp @context.Harga.ToString("N0")</MudTd>
+                <MudTd DataLabel="Stok">
+                    <MudChip Color="@GetStockColor(context.Stok)" Size="Size.Small">
+                        @context.Stok
+                    </MudChip>
+                </MudTd>
+                <MudTd DataLabel="Tanggal Kadaluarsa">
+                    <MudChip Color="@GetExpiryColor(context.TglKadaluarsa)" Size="Size.Small">
+                        @context.TglKadaluarsa.ToString("dd/MM/yyyy")
+                    </MudChip>
+                </MudTd>
+                <MudTd DataLabel="Aksi">
+                    <MudIconButton Icon="@Icons.Material.Filled.Edit"
+                                   Color="Color.Primary"
+                                   Size="Size.Small"
+                                   OnClick="@(() => OpenEditDialog(context))" />
+                    <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                   Color="Color.Error"
+                                   Size="Size.Small"
+                                   OnClick="@(() => OpenDeleteDialog(context))" />
+                </MudTd>
+            </RowTemplate>
+        </MudTable>
+    </MudCardContent>
+</MudCard>

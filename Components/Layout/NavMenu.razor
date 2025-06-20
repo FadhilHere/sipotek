@@ -1,43 +1,31 @@
 ﻿@using MudBlazor
 
-<MudThemeProvider />
-<MudDialogProvider />
-<MudSnackbarProvider />
+<MudNavMenu>
+    <MudText Typo="Typo.h6" Class="px-4 py-2">
+        <MudIcon Icon="@Icons.Material.Filled.LocalPharmacy" Class="mr-2" />
+        SIPOTEK
+    </MudText>
 
-<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <MudText Typo="Typo.h6" Color="Color.Primary">
-            <MudIcon Icon="@Icons.Material.Filled.LocalPharmacy" Class="mr-2" />
-            SIPOTEK
-        </MudText>
-    </div>
-</div>
+    <MudDivider Class="my-2" />
 
-<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
+    <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Dashboard">
+        Dashboard
+    </MudNavLink>
 
-<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
-    <nav class="flex-column">
-        <MudNavMenu>
-            <MudNavLink Href="/" Icon="@Icons.Material.Filled.Dashboard" IconColor="Color.Primary">
-                Dashboard
-            </MudNavLink>
+    <MudNavLink Href="/obat" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Medication">
+        Manajemen Obat
+    </MudNavLink>
 
-            <MudNavLink Href="/obat" Icon="@Icons.Material.Filled.Medication" IconColor="Color.Success">
-                Manajemen Obat
-            </MudNavLink>
+    <MudNavGroup Text="Transaksi" Icon="@Icons.Material.Filled.SwapHoriz" Expanded="false">
+        <MudNavLink Href="/transaksi/masuk" Icon="@Icons.Material.Filled.ArrowDownward">
+            Obat Masuk
+        </MudNavLink>
+        <MudNavLink Href="/transaksi/keluar" Icon="@Icons.Material.Filled.ArrowUpward">
+            Obat Keluar
+        </MudNavLink>
+    </MudNavGroup>
 
-            <MudNavGroup Text="Transaksi" Icon="@Icons.Material.Filled.SwapHoriz" IconColor="Color.Info">
-                <MudNavLink Href="/transaksi/masuk" Icon="@Icons.Material.Filled.ArrowDownward" IconColor="Color.Success">
-                    Obat Masuk
-                </MudNavLink>
-                <MudNavLink Href="/transaksi/keluar" Icon="@Icons.Material.Filled.ArrowUpward" IconColor="Color.Warning">
-                    Obat Keluar
-                </MudNavLink>
-            </MudNavGroup>
-
-            <MudNavLink Href="/laporan" Icon="@Icons.Material.Filled.Assessment" IconColor="Color.Secondary">
-                Laporan
-            </MudNavLink>
-        </MudNavMenu>
-    </nav>
-</div>
+    <MudNavLink Href="/laporan" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Assessment">
+        Laporan
+    </MudNavLink>
+</MudNavMenu>

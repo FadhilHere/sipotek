@@ -1,0 +1,58 @@
+﻿<MudDialog>
+    <DialogContent>
+        <MudContainer Style="max-height: 500px; overflow-y: scroll">
+            <MudForm @ref="form" @bind-IsValid="@isValid">
+                <MudTextField @bind-Value="obat.NamaObat"
+                              Label="Nama Obat"
+                              Required="true"
+                              RequiredError="Nama obat harus diisi!" />
+
+                <MudSelect @bind-Value="obat.JenisObat"
+                           Label="Jenis Obat"
+                           Placeholder="Pilih jenis obat">
+                    @foreach (var jenis in jenisObatOptions)
+                    {
+                        <MudSelectItem Value="@jenis">@jenis</MudSelectItem>
+                    }
+                </MudSelect>
+
+                <MudSelect @bind-Value="obat.BentukObat"
+                           Label="Bentuk Obat"
+                           Placeholder="Pilih bentuk obat">
+                    @foreach (var bentuk in bentukObatOptions)
+                    {
+                        <MudSelectItem Value="@bentuk">@bentuk</MudSelectItem>
+                    }
+                </MudSelect>
+
+                <MudNumericField @bind-Value="obat.Harga"
+                                 Label="Harga"
+                                 Format="N0"
+                                 Adornment="Adornment.Start"
+                                 AdornmentText="Rp"
+                                 Min="0" />
+
+                <MudNumericField @bind-Value="obat.Stok"
+                                 Label="Stok"
+                                 Min="0" />
+
+                <MudDatePicker @bind-Date="tglKadaluarsa"
+                               Label="Tanggal Kadaluarsa"
+                               DateFormat="dd/MM/yyyy"
+                               Placeholder="Pilih tanggal kadaluarsa"
+                               MinDate="DateTime.Today.AddDays(1)" />
+            </MudForm>
+        </MudContainer>
+    </DialogContent>
+
+    <DialogActions>
+        <MudButton OnClick="Cancel">Batal</MudButton>
+        <MudButton Color="Color.Primary"
+                   Variant="Variant.Filled"
+                   OnClick="Submit"
+                   Disabled="@(!isValid)"
+                   StartIcon="@Icons.Material.Filled.Save">
+            Update
+        </MudButton>
+    </DialogActions>
+</MudDialog>

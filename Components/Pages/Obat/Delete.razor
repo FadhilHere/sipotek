@@ -1,0 +1,54 @@
+﻿<MudDialog>
+    <DialogContent>
+        <MudContainer>
+            <div class="d-flex align-center mb-4">
+                <MudIcon Icon="@Icons.Material.Filled.Warning"
+                         Color="Color.Error"
+                         Size="Size.Large"
+                         Class="mr-3" />
+                <MudText Typo="Typo.h6">Konfirmasi Hapus</MudText>
+            </div>
+
+            <MudText Typo="Typo.body1" Class="mb-4">
+                Apakah Anda yakin ingin menghapus obat berikut?
+            </MudText>
+
+            <MudCard Elevation="2" Class="mb-4">
+                <MudCardContent>
+                    <MudGrid>
+                        <MudItem xs="6">
+                            <MudText Typo="Typo.subtitle2">Nama Obat:</MudText>
+                            <MudText Typo="Typo.body1">@Obat.NamaObat</MudText>
+                        </MudItem>
+                        <MudItem xs="6">
+                            <MudText Typo="Typo.subtitle2">Jenis:</MudText>
+                            <MudText Typo="Typo.body1">@Obat.JenisObat</MudText>
+                        </MudItem>
+                        <MudItem xs="6">
+                            <MudText Typo="Typo.subtitle2">Stok:</MudText>
+                            <MudText Typo="Typo.body1">@Obat.Stok</MudText>
+                        </MudItem>
+                        <MudItem xs="6">
+                            <MudText Typo="Typo.subtitle2">Harga:</MudText>
+                            <MudText Typo="Typo.body1">Rp @Obat.Harga.ToString("N0")</MudText>
+                        </MudItem>
+                    </MudGrid>
+                </MudCardContent>
+            </MudCard>
+
+            <MudAlert Severity="Severity.Warning" Class="mb-2">
+                <strong>Perhatian:</strong> Data yang dihapus tidak dapat dikembalikan!
+            </MudAlert>
+        </MudContainer>
+    </DialogContent>
+
+    <DialogActions>
+        <MudButton OnClick="Cancel">Batal</MudButton>
+        <MudButton Color="Color.Error"
+                   Variant="Variant.Filled"
+                   OnClick="Submit"
+                   StartIcon="@Icons.Material.Filled.Delete">
+            Hapus
+        </MudButton>
+    </DialogActions>
+</MudDialog>
