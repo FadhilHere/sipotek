@@ -1,7 +1,244 @@
 ﻿@page "/"
+@rendermode InteractiveServer
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Dashboard - SIPOTEK</PageTitle>
 
-<h1>Hello, world!</h1>
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4">
+    <!-- Header -->
+    <div class="d-flex align-center mb-6">
+        <MudIcon Icon="@Icons.Material.Filled.Dashboard" Color="Color.Primary" Size="Size.Large" Class="mr-3" />
+        <div>
+            <MudText Typo="Typo.h4">Dashboard SIPOTEK</MudText>
+            <MudText Typo="Typo.subtitle1" Color="Color.Secondary">
+                Sistem Informasi Apotek Cipta Mutiara
+            </MudText>
+        </div>
+    </div>
 
-Welcome to your new app.
+    <!-- Summary Cards -->
+    <MudGrid Class="mb-6">
+        <MudItem xs="12" md="3">
+            <MudCard Elevation="3" Class="pa-4">
+                <div class="d-flex align-center">
+                    <MudIcon Icon="@Icons.Material.Filled.Medication" Color="Color.Primary" Size="Size.Large" Class="mr-3" />
+                    <div>
+                        <MudText Typo="Typo.h6">Total Obat</MudText>
+                        <MudText Typo="Typo.h4" Color="Color.Primary">@totalObat</MudText>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary">Jenis obat tersedia</MudText>
+                    </div>
+                </div>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" md="3">
+            <MudCard Elevation="3" Class="pa-4">
+                <div class="d-flex align-center">
+                    <MudIcon Icon="@Icons.Material.Filled.Inventory" Color="Color.Success" Size="Size.Large" Class="mr-3" />
+                    <div>
+                        <MudText Typo="Typo.h6">Total Stok</MudText>
+                        <MudText Typo="Typo.h4" Color="Color.Success">@totalStok</MudText>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary">Unit obat</MudText>
+                    </div>
+                </div>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" md="3">
+            <MudCard Elevation="3" Class="pa-4">
+                <div class="d-flex align-center">
+                    <MudIcon Icon="@Icons.Material.Filled.TrendingUp" Color="Color.Info" Size="Size.Large" Class="mr-3" />
+                    <div>
+                        <MudText Typo="Typo.h6">Penjualan Hari Ini</MudText>
+                        <MudText Typo="Typo.h4" Color="Color.Info">Rp @penjualanHariIni.ToString("N0")</MudText>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary">@transaksiHariIni transaksi</MudText>
+                    </div>
+                </div>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" md="3">
+            <MudCard Elevation="3" Class="pa-4">
+                <div class="d-flex align-center">
+                    <MudIcon Icon="@Icons.Material.Filled.Warning" Color="Color.Warning" Size="Size.Large" Class="mr-3" />
+                    <div>
+                        <MudText Typo="Typo.h6">Stok Rendah</MudText>
+                        <MudText Typo="Typo.h4" Color="Color.Warning">@obatStokRendah</MudText>
+                        <MudText Typo="Typo.caption" Color="Color.Secondary">Obat perlu restock</MudText>
+                    </div>
+                </div>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+
+    <!-- Recent Activities & Alerts -->
+    <MudGrid>
+        <MudItem xs="12" md="8">
+            <MudCard>
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">
+                            <MudIcon Icon="@Icons.Material.Filled.History" Class="mr-2" />
+                            Aktivitas Terbaru
+                        </MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudTable Items="@recentActivities" Hover="true" Dense="true" Elevation="0">
+                        <HeaderContent>
+                            <MudTh>Waktu</MudTh>
+                            <MudTh>Aktivitas</MudTh>
+                            <MudTh>Detail</MudTh>
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd>@context.Waktu.ToString("dd/MM HH:mm")</MudTd>
+                            <MudTd>
+                                <MudChip T="string" Color="@context.Color" Size="Size.Small">
+                                    @context.Jenis
+                                </MudChip>
+                            </MudTd>
+                            <MudTd>@context.Detail</MudTd>
+                        </RowTemplate>
+                    </MudTable>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" md="4">
+            <MudCard Class="mb-4">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">
+                            <MudIcon Icon="@Icons.Material.Filled.NotificationImportant" Class="mr-2" />
+                            Notifikasi
+                        </MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    @if (notifikasi.Any())
+                    {
+                        @foreach (var notif in notifikasi)
+                        {
+                                    <MudAlert Severity="@notif.Severity" Class="mb-2" Dense="true">
+                                        <MudText Typo="Typo.body2">@notif.Pesan</MudText>
+                                    </MudAlert>
+                        }
+                    }
+                    else
+                    {
+                            <MudText Typo="Typo.body2" Color="Color.Secondary">
+                                Tidak ada notifikasi saat ini
+                            </MudText>
+                    }
+                </MudCardContent>
+            </MudCard>
+
+            <!-- Quick Actions -->
+            <MudCard>
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">
+                            <MudIcon Icon="@Icons.Material.Filled.Speed" Class="mr-2" />
+                            Aksi Cepat
+                        </MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudStack>
+                        <MudButton Variant="Variant.Outlined" 
+                                   FullWidth="true" 
+                                   StartIcon="@Icons.Material.Filled.Add"
+                                   Href="/obat">
+                            Tambah Obat
+                        </MudButton>
+                        <MudButton Variant="Variant.Outlined" 
+                                   FullWidth="true" 
+                                   StartIcon="@Icons.Material.Filled.ArrowDownward"
+                                   Color="Color.Success"
+                                   Href="/transaksi/masuk">
+                            Obat Masuk
+                        </MudButton>
+                        <MudButton Variant="Variant.Outlined" 
+                                   FullWidth="true" 
+                                   StartIcon="@Icons.Material.Filled.ArrowUpward"
+                                   Color="Color.Info"
+                                   Href="/transaksi/keluar">
+                            Penjualan Obat
+                        </MudButton>
+                        <MudButton Variant="Variant.Outlined" 
+                                   FullWidth="true" 
+                                   StartIcon="@Icons.Material.Filled.Assessment"
+                                   Color="Color.Tertiary"
+                                   Href="/laporan">
+                            Lihat Laporan
+                        </MudButton>
+                    </MudStack>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+
+    <!-- Bottom Charts Section -->
+    <MudGrid Class="mt-6">
+        <MudItem xs="12" md="6">
+            <MudCard>
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">
+                            <MudIcon Icon="@Icons.Material.Filled.BarChart" Class="mr-2" />
+                            Obat Stok Rendah
+                        </MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudTable Items="@obatStokRendahList" Dense="true" Elevation="0">
+                        <HeaderContent>
+                            <MudTh>Nama Obat</MudTh>
+                            <MudTh>Stok</MudTh>
+                            <MudTh>Status</MudTh>
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd>@context.NamaObat</MudTd>
+                            <MudTd>@context.Stok</MudTd>
+                            <MudTd>
+                                <MudChip T="string" Color="@GetStockColor(context.Stok)" Size="Size.Small">
+                                    @GetStockStatus(context.Stok)
+                                </MudChip>
+                            </MudTd>
+                        </RowTemplate>
+                    </MudTable>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" md="6">
+            <MudCard>
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">
+                            <MudIcon Icon="@Icons.Material.Filled.Schedule" Class="mr-2" />
+                            Obat Mendekati Kadaluarsa
+                        </MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudTable Items="@obatMendekatiKadaluarsa" Dense="true" Elevation="0">
+                        <HeaderContent>
+                            <MudTh>Nama Obat</MudTh>
+                            <MudTh>Tanggal Kadaluarsa</MudTh>
+                            <MudTh>Sisa Hari</MudTh>
+                        </HeaderContent>
+                        <RowTemplate>
+                            <MudTd>@context.NamaObat</MudTd>
+                            <MudTd>@context.TglKadaluarsa.ToString("dd/MM/yyyy")</MudTd>
+                            <MudTd>
+                                <MudChip T="string" Color="@GetExpiryColor(context.TglKadaluarsa)" Size="Size.Small">
+                                    @GetDaysUntilExpiry(context.TglKadaluarsa) hari
+                                </MudChip>
+                            </MudTd>
+                        </RowTemplate>
+                    </MudTable>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</MudContainer>

@@ -1,0 +1,92 @@
+﻿@namespace SIPOTEK.Components.Pages.Transaksi.ObatMasuk
+
+<MudDialog>
+    <DialogContent>
+        <MudContainer Style="max-height: 600px; overflow-y: scroll">
+            <MudForm @ref="form" @bind-IsValid="@isValid">
+                <MudGrid>
+                    <MudItem xs="12">
+                        <MudSelect @bind-Value="obatMasuk.ObatId"
+                                   Label="Pilih Obat"
+                                   Required="true"
+                                   RequiredError="Obat harus dipilih!"
+                                   Placeholder="Pilih obat yang akan ditambah stoknya">
+                            @foreach (var obat in ObatList)
+                            {
+                                <MudSelectItem Value="@obat.Id">
+                                    @obat.NamaObat - @obat.BentukObat (@obat.Stok stok tersisa)
+                                </MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudItem>
+
+                    <MudItem xs="12" md="6">
+                        <MudNumericField @bind-Value="obatMasuk.JumlahMasuk"
+                                         Label="Jumlah Masuk"
+                                         Required="true"
+                                         RequiredError="Jumlah masuk harus diisi!"
+                                         Min="1"
+                                         OnValueChanged="CalculateTotal" />
+                    </MudItem>
+
+                    <MudItem xs="12" md="6">
+                        <MudNumericField @bind-Value="hargaSatuan"
+                                         Label="Harga Satuan"
+                                         Format="N0"
+                                         Adornment="Adornment.Start"
+                                         AdornmentText="Rp"
+                                         Required="true"
+                                         RequiredError="Harga satuan harus diisi!"
+                                         Min="0"
+                                         OnValueChanged="CalculateTotal" />
+                    </MudItem>
+
+                    <MudItem xs="12">
+                        <MudNumericField @bind-Value="obatMasuk.TotalHarga"
+                                         Label="Total Harga"
+                                         Format="N0"
+                                         Adornment="Adornment.Start"
+                                         AdornmentText="Rp"
+                                         ReadOnly="true"
+                                         Variant="Variant.Filled" />
+                    </MudItem>
+
+                    <MudItem xs="12" md="6">
+                        <MudDatePicker @bind-Date="tglMasuk"
+                                       Label="Tanggal Masuk"
+                                       DateFormat="dd/MM/yyyy"
+                                       Required="true"
+                                       RequiredError="Tanggal masuk harus diisi!" />
+                    </MudItem>
+
+                    <MudItem xs="12" md="6">
+                        <MudDatePicker @bind-Date="tglKadaluarsaM"
+                                       Label="Tanggal Kadaluarsa Batch"
+                                       DateFormat="dd/MM/yyyy"
+                                       Required="true"
+                                       RequiredError="Tanggal kadaluarsa harus diisi!"
+                                       MinDate="DateTime.Today.AddDays(1)" />
+                    </MudItem>
+
+                    <MudItem xs="12">
+                        <MudTextField @bind-Value="obatMasuk.Supplier"
+                                      Label="Supplier"
+                                      Required="true"
+                                      RequiredError="Supplier harus diisi!" />
+                    </MudItem>
+                </MudGrid>
+            </MudForm>
+        </MudContainer>
+    </DialogContent>
+
+    <DialogActions>
+        <MudButton OnClick="Cancel">Batal</MudButton>
+        <MudButton Color="Color.Primary"
+                   Variant="Variant.Filled"
+                   OnClick="Submit"
+                   Disabled="@(!isValid)"
+                   StartIcon="@Icons.Material.Filled.Save">
+            Simpan
+        </MudButton>
+    </DialogActions>
+</MudDialog>

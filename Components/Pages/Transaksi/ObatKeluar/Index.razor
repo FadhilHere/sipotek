@@ -1,0 +1,118 @@
+﻿@page "/transaksi/keluar"
+@rendermode InteractiveServer
+
+<PageTitle>Transaksi Obat Keluar</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4">
+    <MudText Typo="Typo.h4" Class="mb-4">
+        <MudIcon Icon="@Icons.Material.Filled.ArrowUpward" Class="mr-2" />
+        Transaksi Obat Keluar
+    </MudText>
+
+    <MudCard>
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h6">Riwayat Penjualan Obat</MudText>
+            </CardHeaderContent>
+            <CardHeaderActions>
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           StartIcon="@Icons.Material.Filled.Add"
+                           OnClick="OpenCreateDialog">
+                    Tambah Penjualan
+                </MudButton>
+            </CardHeaderActions>
+        </MudCardHeader>
+
+        <MudCardContent>
+            <MudTable Items="@ObatKeluarList" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@Loading" Dense="true">
+                <HeaderContent>
+                    <MudTh>No</MudTh>
+                    <MudTh>No Transaksi</MudTh>
+                    <MudTh>Tanggal</MudTh>
+                    <MudTh>Nama Obat</MudTh>
+                    <MudTh>Jumlah</MudTh>
+                    <MudTh>Total Harga</MudTh>
+                    <MudTh>Pelanggan</MudTh>
+                    <MudTh>Aksi</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="No">@(ObatKeluarList.IndexOf(context) + 1)</MudTd>
+                    <MudTd DataLabel="No Transaksi">
+                        <MudChip T="string" Color="Color.Info" Size="Size.Small">
+                            @context.NoTransaksi
+                        </MudChip>
+                    </MudTd>
+                    <MudTd DataLabel="Tanggal">@context.TglKeluar.ToString("dd/MM/yyyy HH:mm")</MudTd>
+                    <MudTd DataLabel="Nama Obat">@context.Obat?.NamaObat</MudTd>
+                    <MudTd DataLabel="Jumlah">
+                        <MudChip T="string" Color="Color.Warning" Size="Size.Small">
+                            @context.JumlahKeluar
+                        </MudChip>
+                    </MudTd>
+                    <MudTd DataLabel="Total Harga">
+                        <MudText Typo="Typo.body2" Color="Color.Success">
+                            <strong>Rp @context.TotalHarga.ToString("N0")</strong>
+                        </MudText>
+                    </MudTd>
+                    <MudTd DataLabel="Pelanggan">@context.Pelanggan</MudTd>
+                    <MudTd DataLabel="Aksi">
+                        <MudIconButton Icon="@Icons.Material.Filled.Edit"
+                                       Color="Color.Primary"
+                                       Size="Size.Small"
+                                       OnClick="@(() => OpenEditDialog(context))" />
+                        <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                       Color="Color.Error"
+                                       Size="Size.Small"
+                                       OnClick="@(() => OpenDeleteDialog(context))" />
+                    </MudTd>
+                </RowTemplate>
+            </MudTable>
+        </MudCardContent>
+    </MudCard>
+
+    <!-- Summary Card -->
+    <MudGrid Class="mt-4">
+        <MudItem xs="12" md="4">
+            <MudCard>
+                <MudCardContent>
+                    <div class="d-flex align-center">
+                        <MudIcon Icon="@Icons.Material.Filled.TrendingUp" Color="Color.Primary" Size="Size.Large" Class="mr-3" />
+                        <div>
+                            <MudText Typo="Typo.h6">Total Penjualan Hari Ini</MudText>
+                            <MudText Typo="Typo.h5" Color="Color.Primary">Rp @totalHariIni.ToString("N0")</MudText>
+                        </div>
+                    </div>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" md="4">
+            <MudCard>
+                <MudCardContent>
+                    <div class="d-flex align-center">
+                        <MudIcon Icon="@Icons.Material.Filled.ShoppingCart" Color="Color.Secondary" Size="Size.Large" Class="mr-3" />
+                        <div>
+                            <MudText Typo="Typo.h6">Transaksi Hari Ini</MudText>
+                            <MudText Typo="Typo.h5" Color="Color.Secondary">@transaksiHariIni</MudText>
+                        </div>
+                    </div>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" md="4">
+            <MudCard>
+                <MudCardContent>
+                    <div class="d-flex align-center">
+                        <MudIcon Icon="@Icons.Material.Filled.CalendarMonth" Color="Color.Tertiary" Size="Size.Large" Class="mr-3" />
+                        <div>
+                            <MudText Typo="Typo.h6">Total Bulan Ini</MudText>
+                            <MudText Typo="Typo.h5" Color="Color.Tertiary">Rp @totalBulanIni.ToString("N0")</MudText>
+                        </div>
+                    </div>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</MudContainer>

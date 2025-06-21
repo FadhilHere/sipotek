@@ -1,22 +1,27 @@
 ﻿@using MudBlazor
 
 <MudNavMenu>
-    <MudText Typo="Typo.h6" Class="px-4 py-2">
-        <MudIcon Icon="@Icons.Material.Filled.LocalPharmacy" Class="mr-2" />
-        SIPOTEK
-    </MudText>
+    <div class="d-flex align-center px-4 py-3">
+        <MudIcon Icon="@Icons.Material.Filled.LocalPharmacy" Color="Color.Primary" Size="Size.Large" Class="mr-3" />
+        <div>
+            <MudText Typo="Typo.h6" Color="Color.Primary">SIPOTEK</MudText>
+            <MudText Typo="Typo.caption" Color="Color.Secondary">Sistem Informasi Apotek</MudText>
+        </div>
+    </div>
 
-    <MudDivider Class="my-2" />
+    <MudDivider Class="mb-3" />
 
     <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Dashboard">
         Dashboard
     </MudNavLink>
 
-    <MudNavLink Href="/obat" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Medication">
-        Manajemen Obat
-    </MudNavLink>
+    <MudNavGroup Text="Master Data" Icon="@Icons.Material.Filled.Storage" Expanded="true">
+        <MudNavLink Href="/obat" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Medication">
+            Data Obat
+        </MudNavLink>
+    </MudNavGroup>
 
-    <MudNavGroup Text="Transaksi" Icon="@Icons.Material.Filled.SwapHoriz" Expanded="false">
+    <MudNavGroup Text="Transaksi" Icon="@Icons.Material.Filled.SwapHoriz" Expanded="true">
         <MudNavLink Href="/transaksi/masuk" Icon="@Icons.Material.Filled.ArrowDownward">
             Obat Masuk
         </MudNavLink>
@@ -25,7 +30,27 @@
         </MudNavLink>
     </MudNavGroup>
 
-    <MudNavLink Href="/laporan" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Assessment">
-        Laporan
-    </MudNavLink>
+    <MudNavGroup Text="Laporan" Icon="@Icons.Material.Filled.Assessment" Expanded="false">
+        <MudNavLink Href="/laporan/stok" Icon="@Icons.Material.Filled.Inventory">
+            Laporan Stok
+        </MudNavLink>
+        <MudNavLink Href="/laporan/penjualan" Icon="@Icons.Material.Filled.TrendingUp">
+            Laporan Penjualan
+        </MudNavLink>
+        <MudNavLink Href="/laporan/kadaluarsa" Icon="@Icons.Material.Filled.Warning">
+            Obat Kadaluarsa
+        </MudNavLink>
+    </MudNavGroup>
+
+    <MudDivider Class="my-3" />
+
+    <MudNavGroup Text="Pengaturan" Icon="@Icons.Material.Filled.Settings" Expanded="false">
+        <MudNavLink Href="/pengaturan/notifikasi" Icon="@Icons.Material.Filled.Notifications">
+            Notifikasi
+        </MudNavLink>
+        <MudNavLink Href="/pengaturan/backup" Icon="@Icons.Material.Filled.Backup">
+            Backup Data
+        </MudNavLink>
+    </MudNavGroup>
+
 </MudNavMenu>

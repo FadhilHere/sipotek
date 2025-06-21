@@ -1,0 +1,69 @@
+﻿@page "/transaksi/masuk"
+@rendermode InteractiveServer
+
+<PageTitle>Transaksi Obat Masuk</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4">
+    <MudText Typo="Typo.h4" Class="mb-4">
+        <MudIcon Icon="@Icons.Material.Filled.ArrowDownward" Class="mr-2" />
+        Transaksi Obat Masuk
+    </MudText>
+
+    <MudCard>
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h6">Riwayat Obat Masuk</MudText>
+            </CardHeaderContent>
+            <CardHeaderActions>
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           StartIcon="@Icons.Material.Filled.Add"
+                           OnClick="OpenCreateDialog">
+                    Tambah Obat Masuk
+                </MudButton>
+            </CardHeaderActions>
+        </MudCardHeader>
+
+        <MudCardContent>
+            <MudTable Items="@ObatMasukList" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@Loading" Dense="true">
+                <HeaderContent>
+                    <MudTh>No</MudTh>
+                    <MudTh>Tanggal Masuk</MudTh>
+                    <MudTh>Nama Obat</MudTh>
+                    <MudTh>Jumlah Masuk</MudTh>
+                    <MudTh>Total Harga</MudTh>
+                    <MudTh>Supplier</MudTh>
+                    <MudTh>Tgl Kadaluarsa</MudTh>
+                    <MudTh>Aksi</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="No">@(ObatMasukList.IndexOf(context) + 1)</MudTd>
+                    <MudTd DataLabel="Tanggal Masuk">@context.TglMasuk.ToString("dd/MM/yyyy")</MudTd>
+                    <MudTd DataLabel="Nama Obat">@context.Obat?.NamaObat</MudTd>
+                    <MudTd DataLabel="Jumlah Masuk">
+                        <MudChip T="string" Color="Color.Info" Size="Size.Small">
+                            @context.JumlahMasuk
+                        </MudChip>
+                    </MudTd>
+                    <MudTd DataLabel="Total Harga">Rp @context.TotalHarga.ToString("N0")</MudTd>
+                    <MudTd DataLabel="Supplier">@context.Supplier</MudTd>
+                    <MudTd DataLabel="Tgl Kadaluarsa">
+                        <MudChip T="string" Color="@GetExpiryColor(context.TglKadaluarsaM)" Size="Size.Small">
+                            @context.TglKadaluarsaM.ToString("dd/MM/yyyy")
+                        </MudChip>
+                    </MudTd>
+                    <MudTd DataLabel="Aksi">
+                        <MudIconButton Icon="@Icons.Material.Filled.Edit"
+                                       Color="Color.Primary"
+                                       Size="Size.Small"
+                                       OnClick="@(() => OpenEditDialog(context))" />
+                        <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                       Color="Color.Error"
+                                       Size="Size.Small"
+                                       OnClick="@(() => OpenDeleteDialog(context))" />
+                    </MudTd>
+                </RowTemplate>
+            </MudTable>
+        </MudCardContent>
+    </MudCard>
+</MudContainer>
