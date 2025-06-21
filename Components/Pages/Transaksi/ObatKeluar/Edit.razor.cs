@@ -75,18 +75,39 @@ namespace SIPOTEK.Components.Pages.Transaksi.ObatKeluar
             return 0;
         }
 
-        void OnObatChanged(int obatId)
+        void OnObatChanged(ChangeEventArgs e)
         {
-            obatKeluar.ObatId = obatId;
-            selectedObat = ObatList.FirstOrDefault(o => o.Id == obatId);
-
-            if (selectedObat != null)
+            if (e.Value != null && int.TryParse(e.Value.ToString(), out int obatId))
             {
-                hargaSatuan = selectedObat.Harga;
+                obatKeluar.ObatId = obatId;
+                selectedObat = ObatList.FirstOrDefault(o => o.Id == obatId);
+
+                if (selectedObat != null)
+                {
+                    hargaSatuan = selectedObat.Harga;
+                    CalculateTotal();
+                }
+
+                StateHasChanged();
+            }
+        }
+
+        void OnJumlahChanged(ChangeEventArgs e)
+        {
+            if (e.Value != null && int.TryParse(e.Value.ToString(), out int jumlah))
+            {
+                obatKeluar.JumlahKeluar = jumlah;
                 CalculateTotal();
             }
+        }
 
-            StateHasChanged();
+        void OnHargaChanged(ChangeEventArgs e)
+        {
+            if (e.Value != null && decimal.TryParse(e.Value.ToString(), out decimal harga))
+            {
+                hargaSatuan = harga;
+                CalculateTotal();
+            }
         }
 
         void CalculateTotal()

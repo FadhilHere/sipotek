@@ -20,7 +20,7 @@
                                    Required="true"
                                    RequiredError="Obat harus dipilih!"
                                    Placeholder="Pilih obat yang akan dijual"
-                                   ValueChanged="OnObatChanged">
+                                   @onchange="OnObatChanged">
                             @foreach (var obat in ObatList)
                             {
                                 <MudSelectItem Value="@obat.Id">
@@ -49,7 +49,7 @@
                                          RequiredError="Jumlah keluar harus diisi!"
                                          Min="1"
                                          Max="@GetMaxQuantity()"
-                                         OnValueChanged="CalculateTotal" />
+                                         @onchange="OnJumlahChanged" />
                     </MudItem>
 
                     <MudItem xs="12" md="6">
@@ -61,7 +61,7 @@
                                          Required="true"
                                          RequiredError="Harga satuan harus diisi!"
                                          Min="0"
-                                         OnValueChanged="CalculateTotal" />
+                                         @onchange="OnHargaChanged" />
                     </MudItem>
 
                     <MudItem xs="12">

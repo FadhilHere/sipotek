@@ -41,6 +41,24 @@ namespace SIPOTEK.Components.Pages.Transaksi.ObatMasuk
                 .ToListAsync();
         }
 
+        void OnJumlahChanged(ChangeEventArgs e)
+        {
+            if (e.Value != null && int.TryParse(e.Value.ToString(), out int jumlah))
+            {
+                obatMasuk.JumlahMasuk = jumlah;
+                CalculateTotal();
+            }
+        }
+
+        void OnHargaChanged(ChangeEventArgs e)
+        {
+            if (e.Value != null && decimal.TryParse(e.Value.ToString(), out decimal harga))
+            {
+                hargaSatuan = harga;
+                CalculateTotal();
+            }
+        }
+
         void CalculateTotal()
         {
             obatMasuk.TotalHarga = obatMasuk.JumlahMasuk * hargaSatuan;

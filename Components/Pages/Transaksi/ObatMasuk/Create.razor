@@ -26,7 +26,7 @@
                                          Required="true"
                                          RequiredError="Jumlah masuk harus diisi!"
                                          Min="1"
-                                         OnValueChanged="CalculateTotal" />
+                                         @onchange="OnJumlahChanged" />
                     </MudItem>
 
                     <MudItem xs="12" md="6">
@@ -38,7 +38,7 @@
                                          Required="true"
                                          RequiredError="Harga satuan harus diisi!"
                                          Min="0"
-                                         OnValueChanged="CalculateTotal" />
+                                         @onchange="OnHargaChanged" />
                     </MudItem>
 
                     <MudItem xs="12">
