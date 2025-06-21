@@ -7,8 +7,8 @@ namespace SIPOTEK.Components.Pages.Obat
 {
     public partial class Create : ComponentBase
     {
-        [CascadingParameter] MudDialogInstance MudDialog { get; set; } = default!;
-        [Inject] SipotekDbContext DbContext { get; set; } = default!;
+		[CascadingParameter] MudDialogInstance MudDialog { get; set; } = default!;
+		[Inject] SipotekDbContext DbContext { get; set; } = default!;
         [Inject] ISnackbar Snackbar { get; set; } = default!;
 
         MudForm form = default!;
@@ -57,7 +57,7 @@ namespace SIPOTEK.Components.Pages.Obat
 
         void Cancel()
         {
-            MudDialog.Cancel();
+            MudDialog.Close();
         }
     }
 }
