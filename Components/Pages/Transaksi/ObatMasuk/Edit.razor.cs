@@ -20,7 +20,7 @@ namespace SIPOTEK.Components.Pages.Transaksi.ObatMasuk
 
         decimal hargaSatuan = 0;
         int originalJumlahMasuk = 0;
-
+         
         DateTime? tglMasuk
         {
             get => obatMasuk.TglMasuk;

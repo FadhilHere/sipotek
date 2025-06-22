@@ -35,34 +35,31 @@ namespace SIPOTEK.Components.Pages.Transaksi.ObatMasuk
         {
             obatMasuk.TglMasuk = DateTime.Today;
             obatMasuk.TglKadaluarsaM = DateTime.Today.AddYears(1);
+            obatMasuk.JumlahMasuk = 0;
+            obatMasuk.TotalHarga = 0;
 
             ObatList = await DbContext.Obats
                 .OrderBy(o => o.NamaObat)
                 .ToListAsync();
         }
 
-        void OnJumlahChanged(ChangeEventArgs e)
+        void OnJumlahChanged(int value)
         {
-            if (e.Value != null && int.TryParse(e.Value.ToString(), out int jumlah))
-            {
-                obatMasuk.JumlahMasuk = jumlah;
-                CalculateTotal();
-            }
+            obatMasuk.JumlahMasuk = value;
+            CalculateTotal();
+            StateHasChanged();
         }
 
-        void OnHargaChanged(ChangeEventArgs e)
+        void OnHargaChanged(decimal value)
         {
-            if (e.Value != null && decimal.TryParse(e.Value.ToString(), out decimal harga))
-            {
-                hargaSatuan = harga;
-                CalculateTotal();
-            }
+            hargaSatuan = value;
+            CalculateTotal();
+            StateHasChanged();
         }
 
         void CalculateTotal()
         {
             obatMasuk.TotalHarga = obatMasuk.JumlahMasuk * hargaSatuan;
-            StateHasChanged();
         }
 
         async Task Submit()
@@ -71,6 +68,18 @@ namespace SIPOTEK.Components.Pages.Transaksi.ObatMasuk
 
             if (!isValid)
                 return;
+
+            if (obatMasuk.JumlahMasuk <= 0)
+            {
+                Snackbar.Add("Jumlah masuk harus lebih dari 0!", Severity.Error);
+                return;
+            }
+
+            if (hargaSatuan <= 0)
+            {
+                Snackbar.Add("Harga satuan harus lebih dari 0!", Severity.Error);
+                return;
+            }
 
             using var transaction = await DbContext.Database.BeginTransactionAsync();
             try
