@@ -22,15 +22,17 @@
 
                     <MudItem xs="12" md="6">
                         <MudNumericField @bind-Value="obatMasuk.JumlahMasuk"
+                                         @bind-Value:after="CalculateTotal"
                                          Label="Jumlah Masuk"
                                          Required="true"
                                          RequiredError="Jumlah masuk harus diisi!"
                                          Min="1"
-                                         ValueChanged="OnJumlahChanged" />
+                                         Immediate="true" />
                     </MudItem>
 
                     <MudItem xs="12" md="6">
                         <MudNumericField @bind-Value="hargaSatuan"
+                                         @bind-Value:after="CalculateTotal"
                                          Label="Harga Satuan"
                                          Format="N0"
                                          Adornment="Adornment.Start"
@@ -38,7 +40,7 @@
                                          Required="true"
                                          RequiredError="Harga satuan harus diisi!"
                                          Min="0"
-                                         ValueChanged="OnHargaChanged" />
+                                         Immediate="true" />
                     </MudItem>
 
                     <MudItem xs="12">

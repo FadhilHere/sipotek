@@ -47,19 +47,18 @@ namespace SIPOTEK.Components.Pages.Transaksi.ObatMasuk
         {
             obatMasuk.JumlahMasuk = value;
             CalculateTotal();
-            StateHasChanged();
         }
 
         void OnHargaChanged(decimal value)
         {
             hargaSatuan = value;
             CalculateTotal();
-            StateHasChanged();
         }
 
         void CalculateTotal()
         {
             obatMasuk.TotalHarga = obatMasuk.JumlahMasuk * hargaSatuan;
+            StateHasChanged();
         }
 
         async Task Submit()

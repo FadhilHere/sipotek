@@ -92,28 +92,9 @@ namespace SIPOTEK.Components.Pages.Transaksi.ObatKeluar
             }
         }
 
-        void OnJumlahChanged(ChangeEventArgs e)
-        {
-            if (e.Value != null && int.TryParse(e.Value.ToString(), out int jumlah))
-            {
-                obatKeluar.JumlahKeluar = jumlah;
-                CalculateTotal();
-            }
-        }
-
-        void OnHargaChanged(ChangeEventArgs e)
-        {
-            if (e.Value != null && decimal.TryParse(e.Value.ToString(), out decimal harga))
-            {
-                hargaSatuan = harga;
-                CalculateTotal();
-            }
-        }
-
         void CalculateTotal()
         {
             obatKeluar.TotalHarga = obatKeluar.JumlahKeluar * hargaSatuan;
-            StateHasChanged();
         }
 
         async Task Submit()

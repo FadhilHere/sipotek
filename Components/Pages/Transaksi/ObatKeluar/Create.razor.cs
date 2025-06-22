@@ -31,6 +31,11 @@ namespace SIPOTEK.Components.Pages.Transaksi.ObatKeluar
             obatKeluar.TglKeluar = DateTime.Now;
             obatKeluar.NoTransaksi = await GenerateNoTransaksiAsync();
 
+            // Initialize values
+            obatKeluar.JumlahKeluar = 0;
+            obatKeluar.TotalHarga = 0;
+            obatKeluar.ObatId = 0;
+
             ObatList = await DbContext.Obats
                 .Where(o => o.Stok > 0)
                 .OrderBy(o => o.NamaObat)
@@ -60,37 +65,33 @@ namespace SIPOTEK.Components.Pages.Transaksi.ObatKeluar
             return $"{prefix}{nextNumber:D3}";
         }
 
-        async Task OnObatSelectionChanged(ChangeEventArgs e)
+        void OnObatSelected()
         {
-            if (e.Value != null && int.TryParse(e.Value.ToString(), out int obatId))
+            Console.WriteLine($"DEBUG: ObatId selected = {obatKeluar.ObatId}");
+
+            if (obatKeluar.ObatId > 0)
             {
-                obatKeluar.ObatId = obatId;
-                selectedObat = ObatList.FirstOrDefault(o => o.Id == obatId);
+                selectedObat = ObatList.FirstOrDefault(o => o.Id == obatKeluar.ObatId);
 
                 if (selectedObat != null)
                 {
+                    Console.WriteLine($"DEBUG: Selected obat = {selectedObat.NamaObat}, Harga = {selectedObat.Harga}, Stok = {selectedObat.Stok}");
+
+                    // Auto-set harga satuan dari obat
                     hargaSatuan = selectedObat.Harga;
+
+                    // Reset jumlah keluar
+                    obatKeluar.JumlahKeluar = 0;
+
+                    // Calculate total
                     CalculateTotal();
                 }
-
-                StateHasChanged();
             }
-        }
-
-        async Task OnJumlahChanged(ChangeEventArgs e)
-        {
-            if (e.Value != null && int.TryParse(e.Value.ToString(), out int jumlah))
+            else
             {
-                obatKeluar.JumlahKeluar = jumlah;
-                CalculateTotal();
-            }
-        }
-
-        async Task OnHargaChanged(ChangeEventArgs e)
-        {
-            if (e.Value != null && decimal.TryParse(e.Value.ToString(), out decimal harga))
-            {
-                hargaSatuan = harga;
+                selectedObat = null;
+                hargaSatuan = 0;
+                obatKeluar.JumlahKeluar = 0;
                 CalculateTotal();
             }
         }
@@ -98,7 +99,21 @@ namespace SIPOTEK.Components.Pages.Transaksi.ObatKeluar
         void CalculateTotal()
         {
             obatKeluar.TotalHarga = obatKeluar.JumlahKeluar * hargaSatuan;
-            StateHasChanged();
+            Console.WriteLine($"DEBUG: CalculateTotal - Jumlah: {obatKeluar.JumlahKeluar}, Harga: {hargaSatuan}, Total: {obatKeluar.TotalHarga}");
+        }
+
+        string GetJumlahHelperText()
+        {
+            if (selectedObat != null)
+                return $"Max: {selectedObat.Stok} unit";
+            return "Pilih obat terlebih dahulu";
+        }
+
+        string GetHargaHelperText()
+        {
+            if (selectedObat != null)
+                return "Harga otomatis dari data obat";
+            return "Pilih obat terlebih dahulu";
         }
 
         async Task Submit()
@@ -107,6 +122,18 @@ namespace SIPOTEK.Components.Pages.Transaksi.ObatKeluar
 
             if (!isValid)
                 return;
+
+            if (selectedObat == null || obatKeluar.ObatId == 0)
+            {
+                Snackbar.Add("Silakan pilih obat terlebih dahulu!", Severity.Error);
+                return;
+            }
+
+            if (obatKeluar.JumlahKeluar <= 0)
+            {
+                Snackbar.Add("Jumlah keluar harus lebih dari 0!", Severity.Error);
+                return;
+            }
 
             // Validasi stok dengan data terbaru dari database
             var currentObat = await DbContext.Obats.FindAsync(obatKeluar.ObatId);
@@ -125,6 +152,8 @@ namespace SIPOTEK.Components.Pages.Transaksi.ObatKeluar
             using var transaction = await DbContext.Database.BeginTransactionAsync();
             try
             {
+                Console.WriteLine($"DEBUG: Saving - ObatId: {obatKeluar.ObatId}, Jumlah: {obatKeluar.JumlahKeluar}, Total: {obatKeluar.TotalHarga}");
+
                 // Tambah obat keluar
                 DbContext.ObatKeluars.Add(obatKeluar);
                 await DbContext.SaveChangesAsync();
@@ -142,6 +171,7 @@ namespace SIPOTEK.Components.Pages.Transaksi.ObatKeluar
             {
                 await transaction.RollbackAsync();
                 Snackbar.Add($"Error: {ex.Message}", Severity.Error);
+                Console.WriteLine($"DEBUG: Error = {ex.Message}");
             }
         }
 

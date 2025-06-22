@@ -15,15 +15,16 @@
                     </MudItem>
 
                     <MudItem xs="12">
-                        <MudSelect @bind-Value="obatKeluar.ObatId"
+                        <MudSelect T="int"
+                                   @bind-Value="obatKeluar.ObatId"
+                                   @bind-Value:after="OnObatSelected"
                                    Label="Pilih Obat"
                                    Required="true"
                                    RequiredError="Obat harus dipilih!"
-                                   Placeholder="Pilih obat yang akan dijual"
-                                   @onchange="OnObatSelectionChanged">
+                                   Placeholder="Pilih obat yang akan dijual">
                             @foreach (var obat in ObatList.Where(o => o.Stok > 0))
                             {
-                                <MudSelectItem Value="@obat.Id">
+                                <MudSelectItem T="int" Value="@obat.Id">
                                     @obat.NamaObat - @obat.BentukObat (Stok: @obat.Stok, Harga: Rp @obat.Harga.ToString("N0"))
                                 </MudSelectItem>
                             }
@@ -44,16 +45,20 @@
 
                     <MudItem xs="12" md="6">
                         <MudNumericField @bind-Value="obatKeluar.JumlahKeluar"
+                                         @bind-Value:after="CalculateTotal"
                                          Label="Jumlah Keluar"
                                          Required="true"
                                          RequiredError="Jumlah keluar harus diisi!"
                                          Min="1"
-                                         Max="@(selectedObat?.Stok ?? 0)"
-                                         @onchange="OnJumlahChanged" />
+                                         Max="@(selectedObat?.Stok ?? 999)"
+                                         Disabled="@(selectedObat == null)"
+                                         HelperText="@GetJumlahHelperText()"
+                                         Immediate="true" />
                     </MudItem>
 
                     <MudItem xs="12" md="6">
                         <MudNumericField @bind-Value="hargaSatuan"
+                                         @bind-Value:after="CalculateTotal"
                                          Label="Harga Satuan"
                                          Format="N0"
                                          Adornment="Adornment.Start"
@@ -61,7 +66,10 @@
                                          Required="true"
                                          RequiredError="Harga satuan harus diisi!"
                                          Min="0"
-                                         @onchange="OnHargaChanged" />
+                                         ReadOnly="@(selectedObat != null)"
+                                         Variant="@(selectedObat != null ? Variant.Filled : Variant.Outlined)"
+                                         HelperText="@GetHargaHelperText()"
+                                         Immediate="true" />
                     </MudItem>
 
                     <MudItem xs="12">
