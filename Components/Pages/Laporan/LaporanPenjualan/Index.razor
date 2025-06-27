@@ -1,0 +1,364 @@
+﻿@page "/laporan/penjualan"
+@rendermode InteractiveServer
+
+<PageTitle>Laporan Penjualan</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4">
+    <MudText Typo="Typo.h4" Class="mb-4">
+        <MudIcon Icon="@Icons.Material.Filled.TrendingUp" Class="mr-2" />
+        Laporan Penjualan
+    </MudText>
+
+    <!-- Filter Section -->
+    <MudCard Class="mb-4">
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h6">Filter Laporan</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudGrid>
+                <MudItem xs="12" md="3">
+                    <MudSelect @bind-Value="periodFilter"
+                               Label="Periode"
+                               @onchange="OnPeriodChanged">
+                        <MudSelectItem Value="PeriodType.Hari">Hari Ini</MudSelectItem>
+                        <MudSelectItem Value="PeriodType.Minggu">Minggu Ini</MudSelectItem>
+                        <MudSelectItem Value="PeriodType.Bulan">Bulan Ini</MudSelectItem>
+                        <MudSelectItem Value="PeriodType.Custom">Custom</MudSelectItem>
+                    </MudSelect>
+                </MudItem>
+
+                @if (periodFilter == PeriodType.Custom)
+                {
+                    <MudItem xs="12" md="3">
+                        <MudDatePicker @bind-Date="startDate"
+                                       Label="Tanggal Mulai"
+                                       DateFormat="dd/MM/yyyy" />
+                    </MudItem>
+                    <MudItem xs="12" md="3">
+                        <MudDatePicker @bind-Date="endDate"
+                                       Label="Tanggal Akhir"
+                                       DateFormat="dd/MM/yyyy" />
+                    </MudItem>
+                }
+
+                <MudItem xs="12" md="3" Class="d-flex align-end">
+                    <MudButtonGroup Variant="Variant.Outlined">
+                        <MudButton OnClick="LoadData"
+                                   Color="Color.Primary"
+                                   StartIcon="@Icons.Material.Filled.Search"
+                                   Disabled="@Loading">
+                            @if (Loading)
+                            {
+                                <MudProgressCircular Size="Size.Small" Indeterminate="true" Class="mr-2" />
+                            }
+                            Filter
+                        </MudButton>
+                        <MudButton OnClick="ResetFilter"
+                                   Color="Color.Secondary"
+                                   StartIcon="@Icons.Material.Filled.Clear">
+                            Reset
+                        </MudButton>
+                    </MudButtonGroup>
+                </MudItem>
+            </MudGrid>
+        </MudCardContent>
+    </MudCard>
+
+    <!-- Summary Cards -->
+    <MudGrid Class="mb-4">
+        <MudItem xs="12" sm="6" md="3">
+            <MudCard>
+                <MudCardContent>
+                    <div class="d-flex align-center">
+                        <MudIcon Icon="@Icons.Material.Filled.AttachMoney" Color="Color.Success" Size="Size.Large" Class="mr-3" />
+                        <div>
+                            <MudText Typo="Typo.h6">Total Penjualan</MudText>
+                            <MudText Typo="Typo.h4" Color="Color.Success">Rp @summary.TotalPenjualan.ToString("N0")</MudText>
+                        </div>
+                    </div>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" sm="6" md="3">
+            <MudCard>
+                <MudCardContent>
+                    <div class="d-flex align-center">
+                        <MudIcon Icon="@Icons.Material.Filled.ShoppingCart" Color="Color.Primary" Size="Size.Large" Class="mr-3" />
+                        <div>
+                            <MudText Typo="Typo.h6">Total Transaksi</MudText>
+                            <MudText Typo="Typo.h4" Color="Color.Primary">@summary.TotalTransaksi</MudText>
+                        </div>
+                    </div>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" sm="6" md="3">
+            <MudCard>
+                <MudCardContent>
+                    <div class="d-flex align-center">
+                        <MudIcon Icon="@Icons.Material.Filled.Inventory" Color="Color.Info" Size="Size.Large" Class="mr-3" />
+                        <div>
+                            <MudText Typo="Typo.h6">Total Unit Terjual</MudText>
+                            <MudText Typo="Typo.h4" Color="Color.Info">@summary.TotalUnitTerjual.ToString("N0")</MudText>
+                        </div>
+                    </div>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" sm="6" md="3">
+            <MudCard>
+                <MudCardContent>
+                    <div class="d-flex align-center">
+                        <MudIcon Icon="@Icons.Material.Filled.TrendingUp" Color="Color.Secondary" Size="Size.Large" Class="mr-3" />
+                        <div>
+                            <MudText Typo="Typo.h6">Rata-rata per Transaksi</MudText>
+                            <MudText Typo="Typo.h5" Color="Color.Secondary">Rp @summary.RataRataPerTransaksi.ToString("N0")</MudText>
+                        </div>
+                    </div>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+
+    <!-- Charts Section -->
+    <MudGrid Class="mb-4">
+        <MudItem xs="12" md="8">
+            <MudCard>
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">Grafik Penjualan Bulanan</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    @if (chartData.Any())
+                    {
+                        <div style="height: 400px; width: 100%;">
+                            <MudText Typo="Typo.body2" Class="mb-4">Penjualan per Bulan (6 Bulan Terakhir)</MudText>
+
+                            @{
+                                var maxValue = chartData.Max(c => c.TotalPenjualan);
+                                var hasData = maxValue > 0;
+                            }
+
+                            @if (hasData)
+                            {
+                                <div style="display: flex; align-items: end; height: 300px; gap: 10px; padding: 20px;">
+                                    @foreach (var data in chartData.TakeLast(6))
+                                    {
+                                        var heightPercent = maxValue > 0 ? (double)(data.TotalPenjualan / maxValue * 100) : 0;
+                                        var barHeight = Math.Max(heightPercent, 5); // Minimum 5% height untuk visibility
+                                        var color = data.TotalPenjualan > 0 ? "#1976d2" : "#e0e0e0";
+
+                                        <div style="display: flex; flex-direction: column; align-items: center; flex: 1;">
+                                            <!-- Bar -->
+                                            <div style="display: flex; flex-direction: column; justify-content: end; height: 250px; width: 100%;">
+                                                <div style="background-color: @color;
+                                                           height: @(barHeight)%;
+                                                           width: 100%;
+                                                           border-radius: 4px 4px 0 0;
+                                                           display: flex;
+                                                           align-items: end;
+                                                           justify-content: center;
+                                                           color: white;
+                                                           font-size: 12px;
+                                                           font-weight: bold;
+                                                           padding: 4px;">
+                                                    @if (data.TotalPenjualan > 0)
+                                                    {
+                                                        <span>@data.TotalTransaksi</span>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <!-- Label -->
+                                            <div style="margin-top: 8px; text-align: center;">
+                                                <MudText Typo="Typo.caption" Style="font-weight: 600;">
+                                                    @data.Tanggal.ToString("MMM")
+                                                </MudText>
+                                                <MudText Typo="Typo.caption" Style="color: #666; font-size: 10px;">
+                                                    @data.Tanggal.ToString("yyyy")
+                                                </MudText>
+                                                <MudText Typo="Typo.caption" Style="color: #059669; font-weight: 600; font-size: 11px;">
+                                                    Rp @((data.TotalPenjualan / 1000).ToString("N0"))k
+                                                </MudText>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+
+                                <!-- Legend -->
+                                <div class="d-flex justify-center mt-3">
+                                    <MudText Typo="Typo.caption" Style="color: #666;">
+                                        📊 Angka di bar = Jumlah Transaksi | Rp = Total Penjualan
+                                    </MudText>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="text-center pa-8">
+                                    <MudIcon Icon="@Icons.Material.Filled.BarChart" Size="Size.Large" Style="color: #94a3b8;" />
+                                    <MudText Typo="Typo.body1" Style="color: #64748b; margin-top: 1rem;">
+                                        Belum ada penjualan dalam 6 bulan terakhir
+                                    </MudText>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center pa-8">
+                            <MudIcon Icon="@Icons.Material.Filled.BarChart" Size="Size.Large" Style="color: #94a3b8;" />
+                            <MudText Typo="Typo.body1" Style="color: #64748b; margin-top: 1rem;">
+                                Tidak ada data penjualan
+                            </MudText>
+                        </div>
+                    }
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" md="4">
+            <MudCard>
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">Top 5 Obat Terlaris</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+                <MudCardContent>
+                    @if (topObatList.Any())
+                    {
+                        @foreach (var obat in topObatList)
+                        {
+                            <div class="d-flex justify-space-between align-center pa-3 mb-2"
+                                 Style="background: #f8fafc; border-radius: 8px;">
+                                <div>
+                                    <MudText Typo="Typo.body1" Style="color: #1e293b; font-weight: 500;">
+                                        @obat.NamaObat
+                                    </MudText>
+                                    <MudText Typo="Typo.caption" Style="color: #64748b;">
+                                        @obat.TotalTerjual unit
+                                    </MudText>
+                                </div>
+                                <MudText Typo="Typo.body2" Style="color: #059669; font-weight: 600;">
+                                    Rp @obat.TotalNilai.ToString("N0")
+                                </MudText>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="text-center pa-6">
+                            <MudIcon Icon="@Icons.Material.Filled.Inventory" Size="Size.Large" Style="color: #94a3b8;" />
+                            <MudText Typo="Typo.body1" Style="color: #64748b; margin-top: 1rem;">
+                                Tidak ada data obat terlaris
+                            </MudText>
+                        </div>
+                    }
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+
+    <!-- Action Buttons -->
+    <MudCard Class="mb-4">
+        <MudCardContent>
+            <MudButtonGroup Variant="Variant.Filled">
+                <MudButton Color="Color.Success"
+                           StartIcon="@Icons.Material.Filled.FileDownload"
+                           OnClick="ExportToExcel"
+                           Disabled="@isExporting">
+                    @if (isExporting)
+                    {
+                        <MudProgressCircular Size="Size.Small" Indeterminate="true" Class="mr-2" />
+                        <text>Exporting...</text>
+                    }
+                    else
+                    {
+                        <text>Export Excel</text>
+                    }
+                </MudButton>
+                <MudButton Color="Color.Error"
+                           StartIcon="@Icons.Material.Filled.PictureAsPdf"
+                           OnClick="ExportToPdf"
+                           Disabled="@isExporting">
+                    Export PDF
+                </MudButton>
+                <MudButton Color="Color.Primary"
+                           StartIcon="@Icons.Material.Filled.Print"
+                           OnClick="PrintReport">
+                    Print
+                </MudButton>
+            </MudButtonGroup>
+        </MudCardContent>
+    </MudCard>
+
+    <!-- Detailed Transactions Table -->
+    <MudCard>
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h6">Detail Transaksi Penjualan</MudText>
+            </CardHeaderContent>
+            <CardHeaderActions>
+                <MudTextField @bind-Value="searchString"
+                              Placeholder="Cari transaksi..."
+                              Adornment="Adornment.Start"
+                              AdornmentIcon="@Icons.Material.Filled.Search"
+                              IconSize="Size.Medium"
+                              Immediate="true"
+                              DebounceInterval="300"
+                              OnDebounceIntervalElapsed="FilterTransactions"
+                              Class="mt-0" />
+            </CardHeaderActions>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudTable Items="@filteredTransaksiList"
+                      Hover="true"
+                      Breakpoint="Breakpoint.Sm"
+                      Loading="@Loading"
+                      Dense="true"
+                      FixedHeader="true"
+                      Height="500px">
+                <HeaderContent>
+                    <MudTh><MudTableSortLabel SortBy="new Func<Models.ObatKeluar, object>(x=>x.TglKeluar)">Tanggal</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<Models.ObatKeluar, object>(x=>x.NoTransaksi)">No Transaksi</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<Models.ObatKeluar, object>(x=>x.Obat.NamaObat)">Obat</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<Models.ObatKeluar, object>(x=>x.JumlahKeluar)">Qty</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<Models.ObatKeluar, object>(x=>x.TotalHarga)">Total</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<Models.ObatKeluar, object>(x=>x.Pelanggan)">Pelanggan</MudTableSortLabel></MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Tanggal">@context.TglKeluar.ToString("dd/MM/yyyy HH:mm")</MudTd>
+                    <MudTd DataLabel="No Transaksi">
+                        <MudChip T="string" Color="Color.Info" Size="Size.Small">
+                            @context.NoTransaksi
+                        </MudChip>
+                    </MudTd>
+                    <MudTd DataLabel="Obat">
+                        <div>
+                            <MudText Typo="Typo.body1">@context.Obat?.NamaObat</MudText>
+                            <MudText Typo="Typo.caption" Color="Color.Secondary">@context.Obat?.BentukObat</MudText>
+                        </div>
+                    </MudTd>
+                    <MudTd DataLabel="Qty">
+                        <MudChip T="string" Color="Color.Warning" Size="Size.Small">
+                            @context.JumlahKeluar
+                        </MudChip>
+                    </MudTd>
+                    <MudTd DataLabel="Total">
+                        <MudText Typo="Typo.body2" Color="Color.Success">
+                            <strong>Rp @context.TotalHarga.ToString("N0")</strong>
+                        </MudText>
+                    </MudTd>
+                    <MudTd DataLabel="Pelanggan">@context.Pelanggan</MudTd>
+                </RowTemplate>
+                <PagerContent>
+                    <MudTablePager PageSizeOptions="new int[]{10, 25, 50, 100}" />
+                </PagerContent>
+            </MudTable>
+        </MudCardContent>
+    </MudCard>
+</MudContainer>

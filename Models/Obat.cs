@@ -23,9 +23,12 @@ namespace SIPOTEK.Models
 
         public int Stok { get; set; }
 
+        // New property for minimum stock
+        public int StokMinimum { get; set; } = 10;
+
         public DateTime TglKadaluarsa { get; set; }
 
-        // Properti baru untuk gambar
+        // Properti untuk gambar
         [MaxLength(500)]
         public string? GambarUrl { get; set; }
 
@@ -37,5 +40,24 @@ namespace SIPOTEK.Models
 
         [MaxLength(100)]
         public string? Produsen { get; set; }
+
+        // Helper methods for stock status
+        public StokStatus GetStokStatus()
+        {
+            if (Stok == 0) return StokStatus.Habis;
+            if (Stok <= StokMinimum) return StokStatus.Kritis;
+            if (Stok <= (StokMinimum * 1.5)) return StokStatus.Rendah;
+            return StokStatus.Normal;
+        }
+
+        public bool IsStokRendah() => GetStokStatus() == StokStatus.Rendah || GetStokStatus() == StokStatus.Kritis;
+    }
+
+    public enum StokStatus
+    {
+        Normal,
+        Rendah,
+        Kritis,
+        Habis
     }
 }

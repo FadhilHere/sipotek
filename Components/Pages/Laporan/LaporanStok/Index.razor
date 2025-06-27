@@ -1,0 +1,245 @@
+﻿@page "/laporan/stok"
+@rendermode InteractiveServer
+
+<PageTitle>Laporan Stok</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4">
+    <MudText Typo="Typo.h4" Class="mb-4">
+        <MudIcon Icon="@Icons.Material.Filled.Inventory" Class="mr-2" />
+        Laporan Stok Obat
+    </MudText>
+
+    <!-- Filter Section -->
+    <MudCard Class="mb-4">
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h6">Filter Laporan</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudGrid>
+                <MudItem xs="12" md="3">
+                    <MudSelect @bind-Value="filterJenisObat"
+                               Label="Jenis Obat"
+                               Clearable="true"
+                               Placeholder="Semua Jenis">
+                        @foreach (var jenis in jenisObatList)
+                        {
+                            <MudSelectItem Value="@jenis">@jenis</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+                <MudItem xs="12" md="3">
+                    <MudSelect @bind-Value="filterStatus"
+                               Label="Status Stok"
+                               Placeholder="Semua Status">
+                        <MudSelectItem Value="StokStatus.Semua">Semua</MudSelectItem>
+                        <MudSelectItem Value="StokStatus.Normal">Normal (>30)</MudSelectItem>
+                        <MudSelectItem Value="StokStatus.Rendah">Rendah (11-30)</MudSelectItem>
+                        <MudSelectItem Value="StokStatus.Kritis">Kritis (≤10)</MudSelectItem>
+                        <MudSelectItem Value="StokStatus.Habis">Habis (0)</MudSelectItem>
+                    </MudSelect>
+                </MudItem>
+                <MudItem xs="12" md="3">
+                    <MudSelect @bind-Value="filterKadaluarsa"
+                               Label="Status Kadaluarsa"
+                               Placeholder="Semua">
+                        <MudSelectItem Value="KadaluarsaStatus.Semua">Semua</MudSelectItem>
+                        <MudSelectItem Value="KadaluarsaStatus.Normal">Normal (>90 hari)</MudSelectItem>
+                        <MudSelectItem Value="KadaluarsaStatus.Mendekati">Mendekati (31-90 hari)</MudSelectItem>
+                        <MudSelectItem Value="KadaluarsaStatus.Segera">Segera (≤30 hari)</MudSelectItem>
+                    </MudSelect>
+                </MudItem>
+                <MudItem xs="12" md="3" Class="d-flex align-end">
+                    <MudButtonGroup Variant="Variant.Outlined" Class="mr-2">
+                        <MudButton OnClick="ApplyFilter"
+                                   Color="Color.Primary"
+                                   StartIcon="@Icons.Material.Filled.Search">
+                            Filter
+                        </MudButton>
+                        <MudButton OnClick="ResetFilter"
+                                   Color="Color.Secondary"
+                                   StartIcon="@Icons.Material.Filled.Clear">
+                            Reset
+                        </MudButton>
+                    </MudButtonGroup>
+                </MudItem>
+            </MudGrid>
+        </MudCardContent>
+    </MudCard>
+
+    <!-- Summary Cards -->
+    <MudGrid Class="mb-4">
+        <MudItem xs="12" sm="6" md="3">
+            <MudCard>
+                <MudCardContent>
+                    <div class="d-flex align-center">
+                        <MudIcon Icon="@Icons.Material.Filled.Medication" Color="Color.Primary" Size="Size.Large" Class="mr-3" />
+                        <div>
+                            <MudText Typo="Typo.h6">Total Jenis Obat</MudText>
+                            <MudText Typo="Typo.h4" Color="Color.Primary">@summary.TotalJenisObat</MudText>
+                        </div>
+                    </div>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" sm="6" md="3">
+            <MudCard>
+                <MudCardContent>
+                    <div class="d-flex align-center">
+                        <MudIcon Icon="@Icons.Material.Filled.Inventory" Color="Color.Success" Size="Size.Large" Class="mr-3" />
+                        <div>
+                            <MudText Typo="Typo.h6">Total Unit Stok</MudText>
+                            <MudText Typo="Typo.h4" Color="Color.Success">@summary.TotalUnit.ToString("N0")</MudText>
+                        </div>
+                    </div>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" sm="6" md="3">
+            <MudCard>
+                <MudCardContent>
+                    <div class="d-flex align-center">
+                        <MudIcon Icon="@Icons.Material.Filled.AttachMoney" Color="Color.Info" Size="Size.Large" Class="mr-3" />
+                        <div>
+                            <MudText Typo="Typo.h6">Nilai Total Stok</MudText>
+                            <MudText Typo="Typo.h5" Color="Color.Info">Rp @summary.NilaiTotalStok.ToString("N0")</MudText>
+                        </div>
+                    </div>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" sm="6" md="3">
+            <MudCard>
+                <MudCardContent>
+                    <div class="d-flex align-center">
+                        <MudIcon Icon="@Icons.Material.Filled.Warning" Color="Color.Error" Size="Size.Large" Class="mr-3" />
+                        <div>
+                            <MudText Typo="Typo.h6">Stok Rendah/Kritis</MudText>
+                            <MudText Typo="Typo.h4" Color="Color.Error">@summary.ObatStokRendah</MudText>
+                        </div>
+                    </div>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+
+    <!-- Action Buttons -->
+    <MudCard Class="mb-4">
+        <MudCardContent>
+            <MudButtonGroup Variant="Variant.Filled">
+                <MudButton Color="Color.Success"
+                           StartIcon="@Icons.Material.Filled.FileDownload"
+                           OnClick="ExportToExcel"
+                           Disabled="@isExporting">
+                    @if (isExporting)
+                    {
+                        <MudProgressCircular Size="Size.Small" Indeterminate="true" Class="mr-2" />
+                        <text>Exporting...</text>
+                    }
+                    else
+                    {
+                        <text>Export Excel</text>
+                    }
+                </MudButton>
+                <MudButton Color="Color.Error"
+                           StartIcon="@Icons.Material.Filled.PictureAsPdf"
+                           OnClick="ExportToPdf"
+                           Disabled="@isExporting">
+                    Export PDF
+                </MudButton>
+                <MudButton Color="Color.Primary"
+                           StartIcon="@Icons.Material.Filled.Print"
+                           OnClick="PrintReport">
+                    Print
+                </MudButton>
+            </MudButtonGroup>
+        </MudCardContent>
+    </MudCard>
+
+    <!-- Data Table -->
+    <MudCard>
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h6">Detail Stok Obat</MudText>
+            </CardHeaderContent>
+            <CardHeaderActions>
+                <MudTextField @bind-Value="searchString"
+                              Placeholder="Cari obat..."
+                              Adornment="Adornment.Start"
+                              AdornmentIcon="@Icons.Material.Filled.Search"
+                              IconSize="Size.Medium"
+                              Immediate="true"
+                              DebounceInterval="300"
+                              OnDebounceIntervalElapsed="ApplyFilter"
+                              Class="mt-0" />
+            </CardHeaderActions>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudTable Items="@filteredObatList"
+                      Hover="true"
+                      Breakpoint="Breakpoint.Sm"
+                      Loading="@Loading"
+                      Dense="true"
+                      FixedHeader="true"
+                      Height="600px">
+                <HeaderContent>
+                    <MudTh><MudTableSortLabel SortBy="new Func<Models.Obat, object>(x=>x.NamaObat)">Nama Obat</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<Models.Obat, object>(x=>x.JenisObat)">Jenis</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<Models.Obat, object>(x=>x.BentukObat)">Bentuk</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<Models.Obat, object>(x=>x.Stok)">Stok</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<Models.Obat, object>(x=>x.Harga)">Harga</MudTableSortLabel></MudTh>
+                    <MudTh>Nilai Stok</MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<Models.Obat, object>(x=>x.TglKadaluarsa)">Kadaluarsa</MudTableSortLabel></MudTh>
+                    <MudTh>Status</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Nama Obat">
+                        <div>
+                            <MudText Typo="Typo.body1">@context.NamaObat</MudText>
+                            @if (!string.IsNullOrEmpty(context.Produsen))
+                            {
+                                <MudText Typo="Typo.caption" Color="Color.Secondary">@context.Produsen</MudText>
+                            }
+                        </div>
+                    </MudTd>
+                    <MudTd DataLabel="Jenis">@context.JenisObat</MudTd>
+                    <MudTd DataLabel="Bentuk">@context.BentukObat</MudTd>
+                    <MudTd DataLabel="Stok">
+                        <MudChip T="string" Color="@GetStockColor(context.Stok)" Size="Size.Small">
+                            @context.Stok
+                        </MudChip>
+                    </MudTd>
+                    <MudTd DataLabel="Harga">Rp @context.Harga.ToString("N0")</MudTd>
+                    <MudTd DataLabel="Nilai Stok">
+                        <MudText Typo="Typo.body2" Color="Color.Success">
+                            <strong>Rp @((context.Stok * context.Harga).ToString("N0"))</strong>
+                        </MudText>
+                    </MudTd>
+                    <MudTd DataLabel="Kadaluarsa">
+                        <MudChip T="string" Color="@GetExpiryColor(context.TglKadaluarsa)" Size="Size.Small">
+                            @context.TglKadaluarsa.ToString("dd/MM/yyyy")
+                        </MudChip>
+                    </MudTd>
+                    <MudTd DataLabel="Status">
+                        <div>
+                            <MudChip T="string" Color="@GetStockColor(context.Stok)" Size="Size.Small" Class="mb-1">
+                                @GetStockStatus(context.Stok)
+                            </MudChip>
+                            <br />
+                            <MudChip T="string" Color="@GetExpiryColor(context.TglKadaluarsa)" Size="Size.Small">
+                                @GetExpiryStatus(context.TglKadaluarsa)
+                            </MudChip>
+                        </div>
+                    </MudTd>
+                </RowTemplate>
+                <PagerContent>
+                    <MudTablePager PageSizeOptions="new int[]{10, 25, 50, 100}" />
+                </PagerContent>
+            </MudTable>
+        </MudCardContent>
+    </MudCard>
+</MudContainer>
