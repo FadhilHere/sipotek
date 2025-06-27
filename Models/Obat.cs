@@ -24,5 +24,18 @@ namespace SIPOTEK.Models
         public int Stok { get; set; }
 
         public DateTime TglKadaluarsa { get; set; }
+
+        // Properti baru untuk gambar
+        [MaxLength(500)]
+        public string? GambarUrl { get; set; }
+
+        [MaxLength(100)]
+        public string? GambarFileName { get; set; }
+
+        [MaxLength(500)]
+        public string? Deskripsi { get; set; }
+
+        [MaxLength(100)]
+        public string? Produsen { get; set; }
     }
 }

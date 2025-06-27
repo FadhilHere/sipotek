@@ -1,0 +1,185 @@
+﻿@namespace SIPOTEK.Components.Pages.Obat
+@inject IFileUploadService FileUploadService
+
+<MudDialog>
+    <DialogContent>
+        <MudContainer Style="max-height: 600px; overflow-y: scroll">
+            <MudCard Elevation="0">
+                <MudCardContent>
+                    <!-- Gambar Produk -->
+                    <div class="text-center mb-4">
+                        <MudImage Src="@GetImageUrl()"
+                                  Alt="@Obat.NamaObat"
+                                  Width="300"
+                                  Height="200"
+                                  ObjectFit="ObjectFit.Cover"
+                                  Class="rounded-lg shadow-lg" />
+                    </div>
+
+                    <!-- Informasi Utama -->
+                    <MudGrid>
+                        <MudItem xs="12">
+                            <MudText Typo="Typo.h4" Align="Align.Center" Class="mb-2">
+                                @Obat.NamaObat
+                            </MudText>
+                            @if (!string.IsNullOrEmpty(Obat.Produsen))
+                            {
+                                <MudText Typo="Typo.subtitle1" Align="Align.Center" Color="Color.Secondary" Class="mb-4">
+                                    Diproduksi oleh @Obat.Produsen
+                                </MudText>
+                            }
+                        </MudItem>
+
+                        <!-- Deskripsi -->
+                        @if (!string.IsNullOrEmpty(Obat.Deskripsi))
+                        {
+                            <MudItem xs="12">
+                                <MudCard Outlined="true" Class="mb-4">
+                                    <MudCardContent>
+                                        <MudText Typo="Typo.h6" Class="mb-2">
+                                            <MudIcon Icon="@Icons.Material.Filled.Description" Class="mr-2" />
+                                            Deskripsi
+                                        </MudText>
+                                        <MudText Typo="Typo.body1">@Obat.Deskripsi</MudText>
+                                    </MudCardContent>
+                                </MudCard>
+                            </MudItem>
+                        }
+
+                        <!-- Spesifikasi Produk -->
+                        <MudItem xs="12">
+                            <MudCard Outlined="true" Class="mb-4">
+                                <MudCardContent>
+                                    <MudText Typo="Typo.h6" Class="mb-3">
+                                        <MudIcon Icon="@Icons.Material.Filled.Info" Class="mr-2" />
+                                        Spesifikasi Produk
+                                    </MudText>
+                                    <MudGrid>
+                                        <MudItem xs="6">
+                                            <MudText Typo="Typo.body2" Color="Color.Secondary">Jenis Obat:</MudText>
+                                            <MudText Typo="Typo.body1" Class="font-weight-medium">@Obat.JenisObat</MudText>
+                                        </MudItem>
+                                        <MudItem xs="6">
+                                            <MudText Typo="Typo.body2" Color="Color.Secondary">Bentuk:</MudText>
+                                            <MudText Typo="Typo.body1" Class="font-weight-medium">@Obat.BentukObat</MudText>
+                                        </MudItem>
+                                        <MudItem xs="6">
+                                            <MudText Typo="Typo.body2" Color="Color.Secondary">Harga:</MudText>
+                                            <MudText Typo="Typo.h6" Color="Color.Primary">Rp @Obat.Harga.ToString("N0")</MudText>
+                                        </MudItem>
+                                        <MudItem xs="6">
+                                            <MudText Typo="Typo.body2" Color="Color.Secondary">Stok Tersedia:</MudText>
+                                            <MudChip T="string" Color="@GetStockColor()" Size="Size.Medium">
+                                                @Obat.Stok unit
+                                            </MudChip>
+                                        </MudItem>
+                                        <MudItem xs="6">
+                                            <MudText Typo="Typo.body2" Color="Color.Secondary">Tanggal Kadaluarsa:</MudText>
+                                            <MudChip T="string" Color="@GetExpiryColor()" Size="Size.Medium">
+                                                @Obat.TglKadaluarsa.ToString("dd MMMM yyyy")
+                                            </MudChip>
+                                        </MudItem>
+                                    </MudGrid>
+                                </MudCardContent>
+                            </MudCard>
+                        </MudItem>
+
+                        <!-- Informasi Apotek -->
+                        <MudItem xs="12">
+                            <MudCard Outlined="true" Style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                                <MudCardContent>
+                                    <div class="text-center">
+                                        <MudIcon Icon="@Icons.Material.Filled.LocalPharmacy" Size="Size.Large" Class="mb-2" />
+                                        <MudText Typo="Typo.h5" Class="mb-2">Apotek Cipta Mutiara</MudText>
+                                        <MudText Typo="Typo.body1" Class="mb-2">
+                                            Jl. Cipta Karya, Sidomulyo Barat, Kec. Tampan, Kota Pekanbaru, Riau
+                                        </MudText>
+                                        <MudText Typo="Typo.body2" Class="mb-3">
+                                            Melayani kebutuhan kesehatan masyarakat sejak 2018
+                                        </MudText>
+                                        <MudText Typo="Typo.caption">
+                                            Izin Apotek: 440/441/SI-Apt/V/2010/04
+                                        </MudText>
+                                    </div>
+                                </MudCardContent>
+                            </MudCard>
+                        </MudItem>
+
+                        <!-- Status Ketersediaan -->
+                        <MudItem xs="12">
+                            <MudAlert Severity="@GetAvailabilitySeverity()" Class="mt-3">
+                                <MudText Typo="Typo.body1">
+                                    <strong>@GetAvailabilityMessage()</strong>
+                                </MudText>
+                            </MudAlert>
+                        </MudItem>
+                    </MudGrid>
+                </MudCardContent>
+            </MudCard>
+        </MudContainer>
+    </DialogContent>
+
+    <DialogActions>
+        <MudButton Color="Color.Primary" OnClick="Close">Tutup</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; } = default!;
+    [Parameter] public Models.Obat Obat { get; set; } = default!;
+
+    string GetImageUrl()
+    {
+        if (!string.IsNullOrEmpty(Obat.GambarFileName))
+        {
+            return FileUploadService.GetImageUrl(Obat.GambarFileName);
+        }
+        return "/images/no-image.png";
+    }
+
+    Color GetStockColor()
+    {
+        return Obat.Stok switch
+        {
+            <= 10 => Color.Error,
+            <= 30 => Color.Warning,
+            _ => Color.Success
+        };
+    }
+
+    Color GetExpiryColor()
+    {
+        var daysUntilExpiry = (Obat.TglKadaluarsa - DateTime.Now).Days;
+        return daysUntilExpiry switch
+        {
+            <= 30 => Color.Error,
+            <= 90 => Color.Warning,
+            _ => Color.Success
+        };
+    }
+
+    Severity GetAvailabilitySeverity()
+    {
+        if (Obat.Stok <= 0) return Severity.Error;
+        if (Obat.Stok <= 10) return Severity.Warning;
+        var daysUntilExpiry = (Obat.TglKadaluarsa - DateTime.Now).Days;
+        if (daysUntilExpiry <= 30) return Severity.Error;
+        return Severity.Success;
+    }
+
+    string GetAvailabilityMessage()
+    {
+        if (Obat.Stok <= 0) return "Produk sedang tidak tersedia";
+        if (Obat.Stok <= 10) return $"Stok terbatas! Hanya tersisa {Obat.Stok} unit";
+
+        var daysUntilExpiry = (Obat.TglKadaluarsa - DateTime.Now).Days;
+        if (daysUntilExpiry <= 30) return "Produk mendekati tanggal kadaluarsa";
+
+        return $"Produk tersedia dengan stok {Obat.Stok} unit";
+    }
+
+    void Close()
+    {
+        MudDialog.Close();
+    }
+}

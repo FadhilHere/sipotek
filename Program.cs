@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using MudBlazor.Services;
 using SIPOTEK.Components;
 using SIPOTEK.Data;
+using SIPOTEK.Services;
 
 namespace SIPOTEK
 {
@@ -21,6 +22,9 @@ namespace SIPOTEK
             // Add Entity Framework
             builder.Services.AddDbContext<SipotekDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            // Add File Upload Service
+            builder.Services.AddScoped<IFileUploadService, FileUploadService>();
 
             var app = builder.Build();
 

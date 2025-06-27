@@ -2,16 +2,88 @@
 
 <MudDialog>
     <DialogContent>
-        <MudContainer Style="max-height: 500px; overflow-y: scroll">
-            <MudForm @ref="form" @bind-IsValid="@isValid">
+        <MudContainer Style="max-height: 600px; overflow-y: scroll">
+            <MudForm @ref="form" @bind-IsValid="@isValid" ValidationDelay="0">
+                <!-- Upload Gambar -->
+                <div class="mb-4">
+                    <MudText Typo="Typo.subtitle2" Class="mb-2">Gambar Obat (Opsional)</MudText>
+
+                    @if (string.IsNullOrEmpty(previewImageUrl))
+                    {
+                        <!-- No Preview - Show Upload Button -->
+                        <div class="d-flex align-center gap-3 mb-3">
+                            <MudButton HtmlTag="label"
+                                       for="fileInput"
+                                       Variant="Variant.Outlined"
+                                       Color="Color.Primary"
+                                       StartIcon="@Icons.Material.Filled.PhotoCamera"
+                                       Disabled="@isUploading">
+                                Pilih Foto
+                            </MudButton>
+
+                            @if (selectedFile != null)
+                            {
+                                <MudText Typo="Typo.body2" Color="Color.Success">
+                                    <MudIcon Icon="@Icons.Material.Filled.CheckCircle" Size="Size.Small" Class="mr-1" />
+                                    @selectedFile.Name
+                                </MudText>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <!-- Preview dengan Actions - SAMA SEPERTI EDIT -->
+                        <MudCard Style="max-width: 300px; border: 2px solid #e0e0e0; border-radius: 12px;" Class="mb-3">
+                            <div style="padding: 8px;">
+                                <img src="@previewImageUrl"
+                                     alt="Preview"
+                                     style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px;" />
+                            </div>
+                            <MudCardActions>
+                                <MudButton Size="Size.Small"
+                                           Color="Color.Error"
+                                           StartIcon="@Icons.Material.Filled.Delete"
+                                           OnClick="RemoveCurrentImage">
+                                    Hapus Gambar
+                                </MudButton>
+                                <MudButton HtmlTag="label"
+                                           for="fileInput"
+                                           Size="Size.Small"
+                                           Color="Color.Primary"
+                                           StartIcon="@Icons.Material.Filled.Edit"
+                                           Disabled="@isUploading">
+                                    Ganti Gambar
+                                </MudButton>
+                            </MudCardActions>
+                        </MudCard>
+                    }
+
+                    <InputFile id="fileInput"
+                               accept=".png,.jpg,.jpeg,.gif"
+                               OnChange="OnFileChanged"
+                               style="display: none;" />
+
+                    @if (isUploading)
+                    {
+                        <MudProgressLinear Color="Color.Primary" Indeterminate="true" Class="mt-2" />
+                        <MudText Typo="Typo.caption" Class="mt-1">Sedang mengupload...</MudText>
+                    }
+                </div>
+
                 <MudTextField @bind-Value="obat.NamaObat"
                               Label="Nama Obat"
                               Required="true"
-                              RequiredError="Nama obat harus diisi!" />
+                              RequiredError="Nama obat harus diisi!"
+                              Class="mb-3"
+                              Variant="Variant.Outlined"
+                              Immediate="true" />
 
                 <MudSelect @bind-Value="obat.JenisObat"
                            Label="Jenis Obat"
-                           Placeholder="Pilih jenis obat">
+                           Placeholder="Pilih jenis obat"
+                           Class="mb-3"
+                           Variant="Variant.Outlined"
+                           Clearable="false">
                     @foreach (var jenis in jenisObatOptions)
                     {
                         <MudSelectItem Value="@jenis">@jenis</MudSelectItem>
@@ -20,39 +92,69 @@
 
                 <MudSelect @bind-Value="obat.BentukObat"
                            Label="Bentuk Obat"
-                           Placeholder="Pilih bentuk obat">
+                           Placeholder="Pilih bentuk obat"
+                           Class="mb-3"
+                           Variant="Variant.Outlined"
+                           Clearable="false">
                     @foreach (var bentuk in bentukObatOptions)
                     {
                         <MudSelectItem Value="@bentuk">@bentuk</MudSelectItem>
                     }
                 </MudSelect>
 
+                <MudTextField @bind-Value="obat.Produsen"
+                              Label="Produsen"
+                              Placeholder="Contoh: Kimia Farma"
+                              Class="mb-3"
+                              Variant="Variant.Outlined" />
+
+                <MudTextField @bind-Value="obat.Deskripsi"
+                              Label="Deskripsi"
+                              Lines="3"
+                              Placeholder="Deskripsi obat untuk company profile..."
+                              Class="mb-3"
+                              Variant="Variant.Outlined" />
+
                 <MudNumericField @bind-Value="obat.Harga"
                                  Label="Harga"
                                  Format="N0"
                                  Adornment="Adornment.Start"
                                  AdornmentText="Rp"
-                                 Min="0" />
+                                 Min="0"
+                                 Class="mb-3"
+                                 Variant="Variant.Outlined"
+                                 Required="true"
+                                 RequiredError="Harga harus diisi!" />
 
                 <MudNumericField @bind-Value="obat.Stok"
                                  Label="Stok"
-                                 Min="0" />
+                                 Min="0"
+                                 Class="mb-3"
+                                 Variant="Variant.Outlined"
+                                 Required="true"
+                                 RequiredError="Stok harus diisi!" />
 
                 <MudDatePicker @bind-Date="tglKadaluarsa"
                                Label="Tanggal Kadaluarsa"
                                DateFormat="dd/MM/yyyy"
                                Placeholder="Pilih tanggal kadaluarsa"
-                               MinDate="DateTime.Today.AddDays(1)" />
+                               MinDate="DateTime.Today.AddDays(1)"
+                               Variant="Variant.Outlined"
+                               Required="true"
+                               RequiredError="Tanggal kadaluarsa harus diisi!" />
             </MudForm>
         </MudContainer>
     </DialogContent>
 
     <DialogActions>
-        <MudButton OnClick="Cancel">Batal</MudButton>
+        <MudButton OnClick="Cancel"
+                   Variant="Variant.Text">
+            Batal
+        </MudButton>
         <MudButton Color="Color.Primary"
                    Variant="Variant.Filled"
                    OnClick="Submit"
-                   Disabled="@(!isValid)"
+                   Disabled="@isUploading"
                    StartIcon="@Icons.Material.Filled.Save">
             Simpan
         </MudButton>
