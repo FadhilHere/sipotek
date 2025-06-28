@@ -63,7 +63,7 @@ namespace SIPOTEK.Components.Pages.Laporan.LaporanStok
                 TotalJenisObat = obatList.Count,
                 TotalUnit = obatList.Sum(o => o.Stok),
                 NilaiTotalStok = obatList.Sum(o => o.Stok * o.Harga),
-                ObatStokRendah = obatList.Count(o => o.Stok <= 30)
+                ObatStokRendah = obatList.Count(o => o.Stok <= o.StokMinimum) // Updated to use individual StokMinimum
             };
         }
 
@@ -88,14 +88,14 @@ namespace SIPOTEK.Components.Pages.Laporan.LaporanStok
                     .ToList();
             }
 
-            // Filter by stock status
+            // Filter by stock status using individual StokMinimum
             if (filterStatus != StokStatus.Semua)
             {
                 filteredObatList = filterStatus switch
                 {
-                    StokStatus.Normal => filteredObatList.Where(o => o.Stok > 30).ToList(),
-                    StokStatus.Rendah => filteredObatList.Where(o => o.Stok >= 11 && o.Stok <= 30).ToList(),
-                    StokStatus.Kritis => filteredObatList.Where(o => o.Stok >= 1 && o.Stok <= 10).ToList(),
+                    StokStatus.Normal => filteredObatList.Where(o => o.Stok > (o.StokMinimum * 1.5)).ToList(),
+                    StokStatus.Rendah => filteredObatList.Where(o => o.Stok > o.StokMinimum && o.Stok <= (o.StokMinimum * 1.5)).ToList(),
+                    StokStatus.Kritis => filteredObatList.Where(o => o.Stok >= 1 && o.Stok <= o.StokMinimum).ToList(),
                     StokStatus.Habis => filteredObatList.Where(o => o.Stok == 0).ToList(),
                     _ => filteredObatList
                 };
@@ -202,23 +202,32 @@ namespace SIPOTEK.Components.Pages.Laporan.LaporanStok
             csv.AppendLine("");
 
             // Data header
-            csv.AppendLine("Nama Obat,Jenis,Bentuk,Produsen,Stok,Harga,Nilai Stok,Tanggal Kadaluarsa,Status Stok,Status Kadaluarsa");
+            csv.AppendLine("Nama Obat,Jenis,Bentuk,Produsen,Stok,Stok Minimum,Harga,Nilai Stok,Tanggal Kadaluarsa,Status Stok,Status Kadaluarsa");
 
             // Data rows
             foreach (var obat in filteredObatList)
             {
                 var nilaiStok = obat.Stok * obat.Harga;
-                var statusStok = GetStockStatus(obat.Stok);
+                var statusStok = GetStockStatus(obat.Stok, obat.StokMinimum);
                 var statusKadaluarsa = GetExpiryStatus(obat.TglKadaluarsa);
 
-                csv.AppendLine($"\"{obat.NamaObat}\",\"{obat.JenisObat}\",\"{obat.BentukObat}\",\"{obat.Produsen}\",{obat.Stok},Rp {obat.Harga:N0},Rp {nilaiStok:N0},{obat.TglKadaluarsa:dd/MM/yyyy},\"{statusStok}\",\"{statusKadaluarsa}\"");
+                csv.AppendLine($"\"{obat.NamaObat}\",\"{obat.JenisObat}\",\"{obat.BentukObat}\",\"{obat.Produsen}\",{obat.Stok},{obat.StokMinimum},Rp {obat.Harga:N0},Rp {nilaiStok:N0},{obat.TglKadaluarsa:dd/MM/yyyy},\"{statusStok}\",\"{statusKadaluarsa}\"");
             }
 
             return csv.ToString();
         }
 
+        Color GetStockColor(int stok, int stokMinimum)
+        {
+            if (stok == 0) return Color.Dark; // Habis
+            if (stok <= stokMinimum) return Color.Error; // Kritis
+            if (stok <= (stokMinimum * 1.5)) return Color.Warning; // Rendah
+            return Color.Success; // Normal
+        }
+
         Color GetStockColor(int stok)
         {
+            // Fallback method for backward compatibility
             return stok switch
             {
                 0 => Color.Dark,
@@ -228,8 +237,17 @@ namespace SIPOTEK.Components.Pages.Laporan.LaporanStok
             };
         }
 
+        string GetStockStatus(int stok, int stokMinimum)
+        {
+            if (stok == 0) return "Habis";
+            if (stok <= stokMinimum) return "Kritis";
+            if (stok <= (stokMinimum * 1.5)) return "Rendah";
+            return "Normal";
+        }
+
         string GetStockStatus(int stok)
         {
+            // Fallback method for backward compatibility
             return stok switch
             {
                 0 => "Habis",

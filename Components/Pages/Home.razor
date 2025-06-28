@@ -4,467 +4,520 @@
 <PageTitle>Dashboard - SIPOTEK</PageTitle>
 
 <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge" Class="pa-0 ma-0" Style="background: #f8fafc; min-height: 100vh; width: 100%;">
-    <div class="dashboard-content" style="padding: 2rem; margin: 0; width: 100%;"
-    <!-- Header Section -->
-    <MudGrid Class="mb-6">
-        <MudItem xs="12">
-            <div class="d-flex align-center">
-                <div class="header-icon me-4">
-                    <MudIcon Icon="@Icons.Material.Filled.Dashboard" Size="Size.Large" Style="color: white;" />
-                </div>
-                <div>
-                    <MudText Typo="Typo.h3" Style="color: #1e293b; font-weight: 700; margin: 0; line-height: 1.2;">
-                        Dashboard SIPOTEK
-                    </MudText>
-                    <MudText Typo="Typo.subtitle1" Style="color: #64748b; margin: 0.25rem 0 0 0; font-size: 1.1rem;">
-                        Sistem Informasi Apotek Cipta Mutiara
-                    </MudText>
-                </div>
-            </div>
-        </MudItem>
-    </MudGrid>
+	<div class="dashboard-content" style="padding: 2rem; margin: 0; width: 100%;"
+	<!-- Header Section -->
+	<MudGrid Class="mb-6">
+		<MudItem xs="12">
+			<div class="d-flex align-center">
+				<div class="header-icon me-4">
+					<MudIcon Icon="@Icons.Material.Filled.Dashboard" Size="Size.Large" Style="color: white;" />
+				</div>
+				<div>
+					<MudText Typo="Typo.h3" Style="color: #1e293b; font-weight: 700; margin: 0; line-height: 1.2;">
+						Dashboard SIPOTEK
+					</MudText>
+					<MudText Typo="Typo.subtitle1" Style="color: #64748b; margin: 0.25rem 0 0 0; font-size: 1.1rem;">
+						Sistem Informasi Apotek Cipta Mutiara
+					</MudText>
+				</div>
+			</div>
+		</MudItem>
+	</MudGrid>
 
-    <!-- Statistics Cards -->
-    <MudGrid Class="mb-6">
-        <MudItem xs="12" sm="6" md="3">
-            <MudCard Class="stat-card primary-card" Style="height: 140px;">
-                <MudCardContent Class="pa-6">
-                    <div class="d-flex align-center">
-                        <div class="stat-icon primary-icon me-4">
-                            <MudIcon Icon="@Icons.Material.Filled.Medication" Size="Size.Large" Style="color: white;" />
-                        </div>
-                        <div>
-                            <MudText Typo="Typo.subtitle2" Style="color: #64748b; margin-bottom: 0.5rem; font-weight: 500;">
-                                Total Obat
-                            </MudText>
-                            <MudText Typo="Typo.h4" Style="color: #1e293b; font-weight: 700; line-height: 1; margin-bottom: 0.25rem;">
-                                    @totalObat
-                            </MudText>
-                            <MudText Typo="Typo.caption" Style="color: #94a3b8;">
-                                Jenis obat tersedia
-                            </MudText>
-                        </div>
-                    </div>
-                </MudCardContent>
-            </MudCard>
-        </MudItem>
+	<!-- Statistics Cards -->
+	<MudGrid Class="mb-6">
+		<MudItem xs="12" sm="6" md="3">
+			<MudCard Class="stat-card primary-card" Style="height: 140px;">
+				<MudCardContent Class="pa-6">
+					<div class="d-flex align-center">
+						<div class="stat-icon primary-icon me-4">
+							<MudIcon Icon="@Icons.Material.Filled.Medication" Size="Size.Large" Style="color: white;" />
+						</div>
+						<div>
+							<MudText Typo="Typo.subtitle2" Style="color: #64748b; margin-bottom: 0.5rem; font-weight: 500;">
+								Total Obat
+							</MudText>
+							<MudText Typo="Typo.h4" Style="color: #1e293b; font-weight: 700; line-height: 1; margin-bottom: 0.25rem;">
+									@totalObat
+							</MudText>
+							<MudText Typo="Typo.caption" Style="color: #94a3b8;">
+								Jenis obat tersedia
+							</MudText>
+						</div>
+					</div>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
 
-        <MudItem xs="12" sm="6" md="3">
-            <MudCard Class="stat-card success-card" Style="height: 140px;">
-                <MudCardContent Class="pa-6">
-                    <div class="d-flex align-center">
-                        <div class="stat-icon success-icon me-4">
-                            <MudIcon Icon="@Icons.Material.Filled.Inventory" Size="Size.Large" Style="color: white;" />
-                        </div>
-                        <div>
-                            <MudText Typo="Typo.subtitle2" Style="color: #64748b; margin-bottom: 0.5rem; font-weight: 500;">
-                                Total Stok
-                            </MudText>
-                            <MudText Typo="Typo.h4" Style="color: #1e293b; font-weight: 700; line-height: 1; margin-bottom: 0.25rem;">
-                                    @totalStok.ToString("N0")
-                            </MudText>
-                            <MudText Typo="Typo.caption" Style="color: #94a3b8;">
-                                Unit obat
-                            </MudText>
-                        </div>
-                    </div>
-                </MudCardContent>
-            </MudCard>
-        </MudItem>
+		<MudItem xs="12" sm="6" md="3">
+			<MudCard Class="stat-card success-card" Style="height: 140px;">
+				<MudCardContent Class="pa-6">
+					<div class="d-flex align-center">
+						<div class="stat-icon success-icon me-4">
+							<MudIcon Icon="@Icons.Material.Filled.Inventory" Size="Size.Large" Style="color: white;" />
+						</div>
+						<div>
+							<MudText Typo="Typo.subtitle2" Style="color: #64748b; margin-bottom: 0.5rem; font-weight: 500;">
+								Total Stok
+							</MudText>
+							<MudText Typo="Typo.h4" Style="color: #1e293b; font-weight: 700; line-height: 1; margin-bottom: 0.25rem;">
+									@totalStok.ToString("N0")
+							</MudText>
+							<MudText Typo="Typo.caption" Style="color: #94a3b8;">
+								Unit obat
+							</MudText>
+						</div>
+					</div>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
 
-        <MudItem xs="12" sm="6" md="3">
-            <MudCard Class="stat-card info-card" Style="height: 140px;">
-                <MudCardContent Class="pa-6">
-                    <div class="d-flex align-center">
-                        <div class="stat-icon info-icon me-4">
-                            <MudIcon Icon="@Icons.Material.Filled.TrendingUp" Size="Size.Large" Style="color: white;" />
-                        </div>
-                        <div>
-                            <MudText Typo="Typo.subtitle2" Style="color: #64748b; margin-bottom: 0.5rem; font-weight: 500;">
-                                Penjualan Hari Ini
-                            </MudText>
-                            <MudText Typo="Typo.h5" Style="color: #1e293b; font-weight: 700; line-height: 1; margin-bottom: 0.25rem;">
-                                Rp @penjualanHariIni.ToString("N0")
-                            </MudText>
-                            <MudText Typo="Typo.caption" Style="color: #94a3b8;">
-                                    @transaksiHariIni transaksi
-                            </MudText>
-                        </div>
-                    </div>
-                </MudCardContent>
-            </MudCard>
-        </MudItem>
+		<MudItem xs="12" sm="6" md="3">
+			<MudCard Class="stat-card info-card" Style="height: 140px;">
+				<MudCardContent Class="pa-6">
+					<div class="d-flex align-center">
+						<div class="stat-icon info-icon me-4">
+							<MudIcon Icon="@Icons.Material.Filled.TrendingUp" Size="Size.Large" Style="color: white;" />
+						</div>
+						<div>
+							<MudText Typo="Typo.subtitle2" Style="color: #64748b; margin-bottom: 0.5rem; font-weight: 500;">
+								Penjualan Hari Ini
+							</MudText>
+							<MudText Typo="Typo.h5" Style="color: #1e293b; font-weight: 700; line-height: 1; margin-bottom: 0.25rem;">
+								Rp @penjualanHariIni.ToString("N0")
+							</MudText>
+							<MudText Typo="Typo.caption" Style="color: #94a3b8;">
+									@transaksiHariIni transaksi
+							</MudText>
+						</div>
+					</div>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
 
-        <MudItem xs="12" sm="6" md="3">
-            <MudCard Class="stat-card warning-card" Style="height: 140px;">
-                <MudCardContent Class="pa-6">
-                    <div class="d-flex align-center">
-                        <div class="stat-icon warning-icon me-4">
-                            <MudIcon Icon="@Icons.Material.Filled.Warning" Size="Size.Large" Style="color: white;" />
-                        </div>
-                        <div>
-                            <MudText Typo="Typo.subtitle2" Style="color: #64748b; margin-bottom: 0.5rem; font-weight: 500;">
-                                Stok Rendah
-                            </MudText>
-                            <MudText Typo="Typo.h4" Style="color: #1e293b; font-weight: 700; line-height: 1; margin-bottom: 0.25rem;">
-                                    @obatStokRendah
-                            </MudText>
-                            <MudText Typo="Typo.caption" Style="color: #94a3b8;">
-                                Obat perlu restock
-                            </MudText>
-                        </div>
-                    </div>
-                </MudCardContent>
-            </MudCard>
-        </MudItem>
-    </MudGrid>
+		<MudItem xs="12" sm="6" md="3">
+			<MudCard Class="stat-card warning-card" Style="height: 140px;">
+				<MudCardContent Class="pa-6">
+					<div class="d-flex align-center">
+						<div class="stat-icon warning-icon me-4">
+							<MudIcon Icon="@Icons.Material.Filled.Warning" Size="Size.Large" Style="color: white;" />
+						</div>
+						<div>
+							<MudText Typo="Typo.subtitle2" Style="color: #64748b; margin-bottom: 0.5rem; font-weight: 500;">
+								Stok Rendah
+							</MudText>
+							<MudText Typo="Typo.h4" Style="color: #1e293b; font-weight: 700; line-height: 1; margin-bottom: 0.25rem;">
+									@obatStokRendah
+							</MudText>
+							<MudText Typo="Typo.caption" Style="color: #94a3b8;">
+								Obat perlu restock
+							</MudText>
+						</div>
+					</div>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+	</MudGrid>
 
-    <!-- Main Content Grid -->
-    <MudGrid Class="mb-6">
-        <MudItem xs="12" lg="8">
-            <!-- Recent Activities -->
-            <MudCard Class="content-card" Style="height: 100%;">
-                <MudCardHeader Class="card-header">
-                    <CardHeaderContent>
-                        <div class="d-flex align-center">
-                            <MudIcon Icon="@Icons.Material.Filled.History" Color="Color.Primary" Class="me-3" />
-                            <MudText Typo="Typo.h6" Style="color: #1e293b; font-weight: 600;">
-                                Aktivitas Terbaru
-                            </MudText>
-                        </div>
-                    </CardHeaderContent>
-                </MudCardHeader>
-                <MudCardContent Class="pa-6">
-                        @if (recentActivities.Any())
-                        {
-                            @foreach (var activity in recentActivities)
-                            {
-                                    <div class="activity-item mb-4">
-                                        <div class="d-flex">
-                                            <MudText Typo="Typo.body2" Style="color: #64748b; font-weight: 500; min-width: 50px;" Class="me-4">
-                                            @activity.Waktu.ToString("HH:mm")
-                                            </MudText>
-                                            <div class="flex-grow-1">
-                                                <MudChip T="string"
-                                                        Color="@activity.Color"
-                                                        Size="Size.Small"
-                                                        Class="mb-2">
-                                                @activity.Jenis
-                                                </MudChip>
-                                                <MudText Typo="Typo.body2" Style="color: #475569;">
-                                                @activity.Detail
-                                                </MudText>
-                                            </div>
-                                        </div>
-                                    </div>
-                            }
-                        }
-                        else
-                        {
-                            <div class="text-center pa-8">
-                                <MudIcon Icon="@Icons.Material.Filled.History" Size="Size.Large" Style="color: #94a3b8;" />
-                                <MudText Typo="Typo.body1" Style="color: #64748b; margin-top: 1rem;">
-                                    Tidak ada aktivitas terbaru
-                                </MudText>
-                            </div>
-                        }
-                </MudCardContent>
-            </MudCard>
-        </MudItem>
+	<!-- Main Content Grid -->
+	<MudGrid Class="mb-6">
+		<MudItem xs="12" lg="8">
+			<!-- Recent Activities -->
+			<MudCard Class="content-card" Style="height: 100%;">
+				<MudCardHeader Class="card-header">
+					<CardHeaderContent>
+						<div class="d-flex align-center">
+							<MudIcon Icon="@Icons.Material.Filled.History" Color="Color.Primary" Class="me-3" />
+							<MudText Typo="Typo.h6" Style="color: #1e293b; font-weight: 600;">
+								Aktivitas Terbaru
+							</MudText>
+						</div>
+					</CardHeaderContent>
+				</MudCardHeader>
+				<MudCardContent Class="pa-6">
+						@if (recentActivities.Any())
+						{
+							@foreach (var activity in recentActivities)
+							{
+															<div class="activity-item mb-4">
+																<div class="d-flex">
+																	<MudText Typo="Typo.body2" Style="color: #64748b; font-weight: 500; min-width: 50px;" Class="me-4">
+											@activity.Waktu.ToString("HH:mm")
+																	</MudText>
+																	<div class="flex-grow-1">
+																		<MudChip T="string"
+																				Color="@activity.Color"
+																				Size="Size.Small"
+																				Class="mb-2">
+												@activity.Jenis
+																		</MudChip>
+																		<MudText Typo="Typo.body2" Style="color: #475569;">
+												@activity.Detail
+																		</MudText>
+																	</div>
+																</div>
+															</div>
+							}
+						}
+						else
+						{
+										<div class="text-center pa-8">
+											<MudIcon Icon="@Icons.Material.Filled.History" Size="Size.Large" Style="color: #94a3b8;" />
+											<MudText Typo="Typo.body1" Style="color: #64748b; margin-top: 1rem;">
+												Tidak ada aktivitas terbaru
+											</MudText>
+										</div>
+						}
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
 
-        <MudItem xs="12" lg="4">
-            <!-- Notifications -->
-            <MudCard Class="content-card" Style="height: 100%;">
-                <MudCardHeader Class="card-header">
-                    <CardHeaderContent>
-                        <div class="d-flex align-center">
-                            <MudIcon Icon="@Icons.Material.Filled.NotificationImportant" Color="Color.Primary" Class="me-3" />
-                            <MudText Typo="Typo.h6" Style="color: #1e293b; font-weight: 600;">
-                                Notifikasi
-                            </MudText>
-                        </div>
-                    </CardHeaderContent>
-                </MudCardHeader>
-                <MudCardContent Class="pa-6">
-                        @if (notifikasi.Any())
-                        {
-                            @foreach (var notif in notifikasi)
-                            {
-                                    <MudAlert Severity="@notif.Severity" Class="mb-3" Dense="true"
-                                             Style="border-radius: 12px;">
-                                        <MudText Typo="Typo.body2">@notif.Pesan</MudText>
-                                    </MudAlert>
-                            }
-                        }
-                        else
-                        {
-                            <div class="text-center pa-6">
-                                <MudIcon Icon="@Icons.Material.Filled.Notifications" Size="Size.Large" Style="color: #94a3b8;" />
-                                <MudText Typo="Typo.body1" Style="color: #64748b; margin-top: 1rem;">
-                                    Tidak ada notifikasi saat ini
-                                </MudText>
-                            </div>
-                        }
-                </MudCardContent>
-            </MudCard>
-        </MudItem>
-    </MudGrid>
+		<MudItem xs="12" lg="4">
+			<!-- Notifications -->
+			<MudCard Class="content-card" Style="height: 100%;">
+				<MudCardHeader Class="card-header">
+					<CardHeaderContent>
+						<div class="d-flex align-center">
+							<MudIcon Icon="@Icons.Material.Filled.NotificationImportant" Color="Color.Primary" Class="me-3" />
+							<MudText Typo="Typo.h6" Style="color: #1e293b; font-weight: 600;">
+								Notifikasi
+							</MudText>
+						</div>
+					</CardHeaderContent>
+				</MudCardHeader>
+				<MudCardContent Class="pa-6">
+						@if (notifikasi.Any())
+						{
+							@foreach (var notif in notifikasi)
+							{
+															<MudAlert Severity="@notif.Severity" Class="mb-3" Dense="true"
+																	 Style="border-radius: 12px;">
+																<MudText Typo="Typo.body2">@notif.Pesan</MudText>
+															</MudAlert>
+							}
+						}
+						else
+						{
+										<div class="text-center pa-6">
+											<MudIcon Icon="@Icons.Material.Filled.Notifications" Size="Size.Large" Style="color: #94a3b8;" />
+											<MudText Typo="Typo.body1" Style="color: #64748b; margin-top: 1rem;">
+												Tidak ada notifikasi saat ini
+											</MudText>
+										</div>
+						}
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+	</MudGrid>
 
-    <!-- Quick Actions -->
-    <MudGrid Class="mb-6">
-        <MudItem xs="12">
-            <MudCard Class="content-card">
-                <MudCardHeader Class="card-header">
-                    <CardHeaderContent>
-                        <div class="d-flex align-center">
-                            <MudIcon Icon="@Icons.Material.Filled.Speed" Color="Color.Primary" Class="me-3" />
-                            <MudText Typo="Typo.h6" Style="color: #1e293b; font-weight: 600;">
-                                Aksi Cepat
-                            </MudText>
-                        </div>
-                    </CardHeaderContent>
-                </MudCardHeader>
-                <MudCardContent Class="pa-6">
-                    <MudGrid>
-                        <MudItem xs="12" sm="6" md="3">
-                            <MudButton Variant="Variant.Outlined"
-                                       FullWidth="true"
-                                       Size="Size.Large"
-                                       StartIcon="@Icons.Material.Filled.Add"
-                                       Color="Color.Primary"
-                                       Href="/obat"
-                                       Class="quick-action-btn">
-                                TAMBAH OBAT
-                            </MudButton>
-                        </MudItem>
+	<!-- Quick Actions -->
+	<MudGrid Class="mb-6">
+		<MudItem xs="12">
+			<MudCard Class="content-card">
+				<MudCardHeader Class="card-header">
+					<CardHeaderContent>
+						<div class="d-flex align-center">
+							<MudIcon Icon="@Icons.Material.Filled.Speed" Color="Color.Primary" Class="me-3" />
+							<MudText Typo="Typo.h6" Style="color: #1e293b; font-weight: 600;">
+								Aksi Cepat
+							</MudText>
+						</div>
+					</CardHeaderContent>
+				</MudCardHeader>
+				<MudCardContent Class="pa-6">
+					<MudGrid>
+						<MudItem xs="12" sm="6" md="3">
+							<MudButton Variant="Variant.Outlined"
+									   FullWidth="true"
+									   Size="Size.Large"
+									   StartIcon="@Icons.Material.Filled.Add"
+									   Color="Color.Primary"
+									   Href="/obat"
+									   Class="quick-action-btn">
+								TAMBAH OBAT
+							</MudButton>
+						</MudItem>
 
-                        <MudItem xs="12" sm="6" md="3">
-                            <MudButton Variant="Variant.Outlined"
-                                       FullWidth="true"
-                                       Size="Size.Large"
-                                       StartIcon="@Icons.Material.Filled.ArrowDownward"
-                                       Color="Color.Success"
-                                       Href="/transaksi/masuk"
-                                       Class="quick-action-btn">
-                                OBAT MASUK
-                            </MudButton>
-                        </MudItem>
+						<MudItem xs="12" sm="6" md="3">
+							<MudButton Variant="Variant.Outlined"
+									   FullWidth="true"
+									   Size="Size.Large"
+									   StartIcon="@Icons.Material.Filled.ArrowDownward"
+									   Color="Color.Success"
+									   Href="/transaksi/masuk"
+									   Class="quick-action-btn">
+								OBAT MASUK
+							</MudButton>
+						</MudItem>
 
-                        <MudItem xs="12" sm="6" md="3">
-                            <MudButton Variant="Variant.Outlined"
-                                       FullWidth="true"
-                                       Size="Size.Large"
-                                       StartIcon="@Icons.Material.Filled.ArrowUpward"
-                                       Color="Color.Info"
-                                       Href="/transaksi/keluar"
-                                       Class="quick-action-btn">
-                                PENJUALAN OBAT
-                            </MudButton>
-                        </MudItem>
+						<MudItem xs="12" sm="6" md="3">
+							<MudButton Variant="Variant.Outlined"
+									   FullWidth="true"
+									   Size="Size.Large"
+									   StartIcon="@Icons.Material.Filled.ArrowUpward"
+									   Color="Color.Info"
+									   Href="/transaksi/keluar"
+									   Class="quick-action-btn">
+								PENJUALAN OBAT
+							</MudButton>
+						</MudItem>
 
-                        <MudItem xs="12" sm="6" md="3">
-                            <MudButton Variant="Variant.Outlined"
-                                       FullWidth="true"
-                                       Size="Size.Large"
-                                       StartIcon="@Icons.Material.Filled.Assessment"
-                                       Color="Color.Tertiary"
-                                       Href="/laporan/stok"
-                                       Class="quick-action-btn">
-                                LIHAT LAPORAN
-                            </MudButton>
-                        </MudItem>
-                    </MudGrid>
-                </MudCardContent>
-            </MudCard>
-        </MudItem>
-    </MudGrid>
+						<MudItem xs="12" sm="6" md="3">
+							<MudButton Variant="Variant.Outlined"
+									   FullWidth="true"
+									   Size="Size.Large"
+									   StartIcon="@Icons.Material.Filled.Assessment"
+									   Color="Color.Tertiary"
+									   Href="/laporan/stok"
+									   Class="quick-action-btn">
+								LIHAT LAPORAN
+							</MudButton>
+						</MudItem>
+					</MudGrid>
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+	</MudGrid>
 
-    <!-- Bottom Section -->
-    <MudGrid>
-        <MudItem xs="12" md="6">
-            <!-- Low Stock Alert -->
-            <MudCard Class="content-card">
-                <MudCardHeader Class="card-header">
-                    <CardHeaderContent>
-                        <div class="d-flex align-center">
-                            <MudIcon Icon="@Icons.Material.Filled.BarChart" Color="Color.Primary" Class="me-3" />
-                            <MudText Typo="Typo.h6" Style="color: #1e293b; font-weight: 600;">
-                                Obat Stok Rendah
-                            </MudText>
-                        </div>
-                    </CardHeaderContent>
-                </MudCardHeader>
-                <MudCardContent Class="pa-6">
-                        @if (obatStokRendahList.Any())
-                        {
-                            @foreach (var obat in obatStokRendahList)
-                            {
-                                    <div class="d-flex justify-space-between align-center pa-3 mb-2"
-                                         Style="background: #f8fafc; border-radius: 8px;">
-                                        <MudText Typo="Typo.body1" Style="color: #1e293b; font-weight: 500;">
-                                        @obat.NamaObat
-                                        </MudText>
-                                        <div class="text-right">
-                                            <MudChip T="string"
-                                                    Color="@GetStockColor(obat.Stok)"
-                                                    Size="Size.Small"
-                                                    Style="font-weight: 700; margin-bottom: 0.25rem;">
-                                            @obat.Stok
-                                            </MudChip>
-                                            <MudText Typo="Typo.caption" Style="color: #64748b; display: block;">
-                                            @GetStockStatus(obat.Stok)
-                                            </MudText>
-                                        </div>
-                                    </div>
-                            }
-                        }
-                        else
-                        {
-                            <div class="text-center pa-6">
-                                <MudIcon Icon="@Icons.Material.Filled.CheckCircle" Size="Size.Large" Color="Color.Success" />
-                                <MudText Typo="Typo.body1" Style="color: #64748b; margin-top: 1rem;">
-                                    Semua stok dalam kondisi normal
-                                </MudText>
-                            </div>
-                        }
-                </MudCardContent>
-            </MudCard>
-        </MudItem>
-
-        <MudItem xs="12" md="6">
-            <!-- Expiry Alert -->
-            <MudCard Class="content-card">
-                <MudCardHeader Class="card-header">
-                    <CardHeaderContent>
-                        <div class="d-flex align-center">
-                            <MudIcon Icon="@Icons.Material.Filled.Schedule" Color="Color.Primary" Class="me-3" />
-                            <MudText Typo="Typo.h6" Style="color: #1e293b; font-weight: 600;">
-                                Obat Mendekati Kadaluarsa
-                            </MudText>
-                        </div>
-                    </CardHeaderContent>
-                </MudCardHeader>
-                <MudCardContent Class="pa-6">
-                        @if (obatMendekatiKadaluarsa.Any())
-                        {
-                            @foreach (var obat in obatMendekatiKadaluarsa)
-                            {
-                                    <div class="d-flex justify-space-between align-center pa-3 mb-2"
-                                         Style="background: #f8fafc; border-radius: 8px;">
-                                        <MudText Typo="Typo.body1" Style="color: #1e293b; font-weight: 500;">
-                                        @obat.NamaObat
-                                        </MudText>
-                                        <div class="text-right">
-                                            <MudText Typo="Typo.body2" Style="color: #64748b; margin-bottom: 0.25rem;">
-                                            @obat.TglKadaluarsa.ToString("dd/MM/yyyy")
-                                            </MudText>
-                                            <MudChip T="string"
-                                                    Color="@GetExpiryColor(obat.TglKadaluarsa)"
-                                                    Size="Size.Small">
-                                            @GetDaysUntilExpiry(obat.TglKadaluarsa) hari lagi
-                                            </MudChip>
-                                        </div>
-                                    </div>
-                            }
-                        }
-                        else
-                        {
-                            <div class="text-center pa-6">
-                                <MudIcon Icon="@Icons.Material.Filled.CheckCircle" Size="Size.Large" Color="Color.Success" />
-                                <MudText Typo="Typo.body1" Style="color: #64748b; margin-top: 1rem;">
-                                    Tidak ada obat yang akan kadaluarsa
-                                </MudText>
-                            </div>
-                        }
-                </MudCardContent>
-            </MudCard>
-        </MudItem>
-    </MudGrid>
-    </div>
+	<!-- Bottom Section -->
+	<MudGrid>
+		<MudItem xs="12" md="6">
+			<!-- Low Stock Alert -->
+			<MudCard Class="content-card">
+				<MudCardHeader Class="card-header">
+					<CardHeaderContent>
+						<div class="d-flex align-center">
+							<MudIcon Icon="@Icons.Material.Filled.BarChart" Color="Color.Primary" Class="me-3" />
+							<MudText Typo="Typo.h6" Style="color: #1e293b; font-weight: 600;">
+								Obat Stok Rendah
+							</MudText>
+						</div>
+					</CardHeaderContent>
+				</MudCardHeader>
+				<MudCardContent Class="pa-6">
+						@if (obatStokRendahList.Any())
+						{
+							@foreach (var obat in obatStokRendahList)
+							{
+															<div class="d-flex justify-space-between align-center pa-3 mb-2"
+																 Style="background: #f8fafc; border-radius: 8px;">
+																<MudText Typo="Typo.body1" Style="color: #1e293b; font-weight: 500;">
+										@obat.NamaObat
+																</MudText>
+																<div class="text-right">
+																	<MudChip T="string"
+																			Color="@GetStockColor(obat.Stok)"
+																			Size="Size.Small"
+																			Style="font-weight: 700; margin-bottom: 0.25rem;">
+											@obat.Stok
+																	</MudChip>
+																	<MudText Typo="Typo.caption" Style="color: #64748b; display: block;">
+											@GetStockStatus(obat.Stok)
+																	</MudText>
+																</div>
+															</div>
+							}
+						}
+						else
+						{
+										<div class="text-center pa-6">
+											<MudIcon Icon="@Icons.Material.Filled.CheckCircle" Size="Size.Large" Color="Color.Success" />
+											<MudText Typo="Typo.body1" Style="color: #64748b; margin-top: 1rem;">
+												Semua stok dalam kondisi normal
+											</MudText>
+										</div>
+						}
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+		<MudItem xs="12" md="6">
+			<!-- Low Stock Alert -->
+			<MudCard Class="content-card">
+				<MudCardHeader Class="card-header">
+					<CardHeaderContent>
+						<div class="d-flex align-center">
+							<MudIcon Icon="@Icons.Material.Filled.BarChart" Color="Color.Primary" Class="me-3" />
+							<MudText Typo="Typo.h6" Style="color: #1e293b; font-weight: 600;">
+								Obat Stok Rendah
+							</MudText>
+						</div>
+					</CardHeaderContent>
+				</MudCardHeader>
+				<MudCardContent Class="pa-6">
+						@if (obatStokRendahList.Any())
+						{
+							@foreach (var obat in obatStokRendahList)
+							{
+															<div class="d-flex justify-space-between align-center pa-3 mb-2"
+																 Style="background: #f8fafc; border-radius: 8px;">
+																<div>
+																	<MudText Typo="Typo.body1" Style="color: #1e293b; font-weight: 500;">
+											@obat.NamaObat
+																	</MudText>
+																	<MudText Typo="Typo.caption" Style="color: #64748b;">
+																		Minimum: @obat.StokMinimum unit
+																	</MudText>
+																</div>
+																<div class="text-right">
+																	<MudChip T="string"
+																			Color="@GetStockColor(obat.Stok, obat.StokMinimum)"
+																			Size="Size.Small"
+																			Style="font-weight: 700; margin-bottom: 0.25rem;">
+											@obat.Stok
+																	</MudChip>
+																	<MudText Typo="Typo.caption" Style="color: #64748b; display: block;">
+											@GetStockStatus(obat.Stok, obat.StokMinimum)
+																	</MudText>
+																</div>
+															</div>
+							}
+						}
+						else
+						{
+										<div class="text-center pa-6">
+											<MudIcon Icon="@Icons.Material.Filled.CheckCircle" Size="Size.Large" Color="Color.Success" />
+											<MudText Typo="Typo.body1" Style="color: #64748b; margin-top: 1rem;">
+												Semua stok dalam kondisi normal
+											</MudText>
+										</div>
+						}
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+		<MudItem xs="12" md="6">
+			<!-- Expiry Alert -->
+			<MudCard Class="content-card">
+				<MudCardHeader Class="card-header">
+					<CardHeaderContent>
+						<div class="d-flex align-center">
+							<MudIcon Icon="@Icons.Material.Filled.Schedule" Color="Color.Primary" Class="me-3" />
+							<MudText Typo="Typo.h6" Style="color: #1e293b; font-weight: 600;">
+								Obat Mendekati Kadaluarsa
+							</MudText>
+						</div>
+					</CardHeaderContent>
+				</MudCardHeader>
+				<MudCardContent Class="pa-6">
+						@if (obatMendekatiKadaluarsa.Any())
+						{
+							@foreach (var obat in obatMendekatiKadaluarsa)
+							{
+															<div class="d-flex justify-space-between align-center pa-3 mb-2"
+																 Style="background: #f8fafc; border-radius: 8px;">
+																<MudText Typo="Typo.body1" Style="color: #1e293b; font-weight: 500;">
+										@obat.NamaObat
+																</MudText>
+																<div class="text-right">
+																	<MudText Typo="Typo.body2" Style="color: #64748b; margin-bottom: 0.25rem;">
+											@obat.TglKadaluarsa.ToString("dd/MM/yyyy")
+																	</MudText>
+																	<MudChip T="string"
+																			Color="@GetExpiryColor(obat.TglKadaluarsa)"
+																			Size="Size.Small">
+											@GetDaysUntilExpiry(obat.TglKadaluarsa) hari lagi
+																	</MudChip>
+																</div>
+															</div>
+							}
+						}
+						else
+						{
+										<div class="text-center pa-6">
+											<MudIcon Icon="@Icons.Material.Filled.CheckCircle" Size="Size.Large" Color="Color.Success" />
+											<MudText Typo="Typo.body1" Style="color: #64748b; margin-top: 1rem;">
+												Tidak ada obat yang akan kadaluarsa
+											</MudText>
+										</div>
+						}
+				</MudCardContent>
+			</MudCard>
+		</MudItem>
+	</MudGrid>
+	</div>
 </MudContainer>
 
 <style>
-    .dashboard-content {
-        padding: 2rem;
-        background: #f8fafc;
-        margin-left: 0;
-    }
+	.dashboard-content {
+		padding: 2rem;
+		background: #f8fafc;
+		margin-left: 0;
+	}
 
-    .header-icon {
-        width: 60px;
-        height: 60px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        border-radius: 16px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+	.header-icon {
+		width: 60px;
+		height: 60px;
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		border-radius: 16px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 
-    .stat-card {
-        border-radius: 20px !important;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
-        border: 1px solid #e2e8f0 !important;
-        transition: transform 0.2s, box-shadow 0.2s;
-    }
+	.stat-card {
+		border-radius: 20px !important;
+		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+		border: 1px solid #e2e8f0 !important;
+		transition: transform 0.2s, box-shadow 0.2s;
+	}
 
-        .stat-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1) !important;
-        }
+		.stat-card:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1) !important;
+		}
 
-    .stat-icon {
-        width: 60px;
-        height: 60px;
-        border-radius: 16px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+	.stat-icon {
+		width: 60px;
+		height: 60px;
+		border-radius: 16px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 
-    .primary-icon {
-        background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-    }
+	.primary-icon {
+		background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+	}
 
-    .success-icon {
-        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    }
+	.success-icon {
+		background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+	}
 
-    .info-icon {
-        background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
-    }
+	.info-icon {
+		background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+	}
 
-    .warning-icon {
-        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-    }
+	.warning-icon {
+		background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+	}
 
-    .content-card {
-        border-radius: 20px !important;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
-        border: 1px solid #e2e8f0 !important;
-    }
+	.content-card {
+		border-radius: 20px !important;
+		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+		border: 1px solid #e2e8f0 !important;
+	}
 
-    .card-header {
-        background: #f8fafc !important;
-        border-bottom: 1px solid #e2e8f0 !important;
-    }
+	.card-header {
+		background: #f8fafc !important;
+		border-bottom: 1px solid #e2e8f0 !important;
+	}
 
-    .activity-item {
-        padding: 1rem;
-        background: #f8fafc;
-        border-radius: 12px;
-        border-left: 4px solid #e2e8f0;
-    }
+	.activity-item {
+		padding: 1rem;
+		background: #f8fafc;
+		border-radius: 12px;
+		border-left: 4px solid #e2e8f0;
+	}
 
-    .quick-action-btn {
-        height: 80px !important;
-        border-radius: 16px !important;
-        border-width: 2px !important;
-        font-weight: 600 !important;
-        transition: all 0.2s !important;
-    }
+	.quick-action-btn {
+		height: 80px !important;
+		border-radius: 16px !important;
+		border-width: 2px !important;
+		font-weight: 600 !important;
+		transition: all 0.2s !important;
+	}
 
-        .quick-action-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.1);
-        }
+		.quick-action-btn:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.1);
+		}
 </style>

@@ -44,9 +44,9 @@ namespace SIPOTEK.Components.Pages
             penjualanHariIni = penjualanToday.Sum(ok => ok.TotalHarga);
             transaksiHariIni = penjualanToday.Count;
 
-            // Load obat stok rendah (stok <= 10)
+            // Load obat stok rendah berdasarkan StokMinimum yang individual
             obatStokRendahList = await DbContext.Obats
-                .Where(o => o.Stok <= 10)
+                .Where(o => o.Stok <= o.StokMinimum)
                 .OrderBy(o => o.Stok)
                 .Take(5)
                 .ToListAsync();
@@ -148,20 +148,40 @@ namespace SIPOTEK.Components.Pages
             }
         }
 
+        Color GetStockColor(int stok, int stokMinimum)
+        {
+            if (stok == 0) return Color.Dark; // Habis
+            if (stok <= stokMinimum) return Color.Error; // Kritis
+            if (stok <= (stokMinimum * 1.5)) return Color.Warning; // Rendah
+            return Color.Success; // Normal
+        }
+
         Color GetStockColor(int stok)
         {
+            // Fallback method for backward compatibility
             return stok switch
             {
+                0 => Color.Dark,
                 <= 5 => Color.Error,
                 <= 10 => Color.Warning,
                 _ => Color.Success
             };
         }
 
+        string GetStockStatus(int stok, int stokMinimum)
+        {
+            if (stok == 0) return "Habis";
+            if (stok <= stokMinimum) return "Kritis";
+            if (stok <= (stokMinimum * 1.5)) return "Rendah";
+            return "Normal";
+        }
+
         string GetStockStatus(int stok)
         {
+            // Fallback method for backward compatibility
             return stok switch
             {
+                0 => "Habis",
                 <= 5 => "Kritis",
                 <= 10 => "Rendah",
                 _ => "Normal"

@@ -42,6 +42,7 @@ namespace SIPOTEK.Components.Pages.Obat
             obat.TglKadaluarsa = DateTime.Today.AddYears(1);
             obat.Harga = 0;
             obat.Stok = 0;
+            obat.StokMinimum = 10; // Default stok minimum
         }
 
         void ClearFile()
@@ -119,6 +120,12 @@ namespace SIPOTEK.Components.Pages.Obat
             if (obat.Stok < 0)
             {
                 Snackbar.Add("Stok tidak boleh negatif!", Severity.Warning);
+                return;
+            }
+
+            if (obat.StokMinimum < 0)
+            {
+                Snackbar.Add("Stok minimum tidak boleh negatif!", Severity.Warning);
                 return;
             }
 

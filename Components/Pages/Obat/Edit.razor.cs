@@ -48,6 +48,7 @@ namespace SIPOTEK.Components.Pages.Obat
                 BentukObat = Obat.BentukObat,
                 Harga = Obat.Harga,
                 Stok = Obat.Stok,
+                StokMinimum = Obat.StokMinimum, // Added this
                 TglKadaluarsa = Obat.TglKadaluarsa,
                 GambarFileName = Obat.GambarFileName,
                 GambarUrl = Obat.GambarUrl,
@@ -146,6 +147,12 @@ namespace SIPOTEK.Components.Pages.Obat
                 return;
             }
 
+            if (obat.StokMinimum < 0)
+            {
+                Snackbar.Add("Stok minimum tidak boleh negatif!", Severity.Warning);
+                return;
+            }
+
             isUploading = true;
             StateHasChanged();
 
@@ -183,6 +190,7 @@ namespace SIPOTEK.Components.Pages.Obat
                     existingObat.BentukObat = obat.BentukObat;
                     existingObat.Harga = obat.Harga;
                     existingObat.Stok = obat.Stok;
+                    existingObat.StokMinimum = obat.StokMinimum;
                     existingObat.TglKadaluarsa = obat.TglKadaluarsa;
                     existingObat.GambarFileName = obat.GambarFileName;
                     existingObat.GambarUrl = obat.GambarUrl;

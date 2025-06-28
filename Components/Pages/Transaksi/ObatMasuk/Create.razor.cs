@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
 using MudBlazor;
 using SIPOTEK.Data;
@@ -80,6 +80,12 @@ namespace SIPOTEK.Components.Pages.Transaksi.ObatMasuk
                 return;
             }
 
+            if (obatMasuk.TglKadaluarsaM <= DateTime.Today)
+            {
+                Snackbar.Add("Tanggal kadaluarsa harus di masa depan!", Severity.Error);
+                return;
+            }
+
             using var transaction = await DbContext.Database.BeginTransactionAsync();
             try
             {
@@ -87,12 +93,31 @@ namespace SIPOTEK.Components.Pages.Transaksi.ObatMasuk
                 DbContext.ObatMasuks.Add(obatMasuk);
                 await DbContext.SaveChangesAsync();
 
-                // Update stok obat
                 var obat = await DbContext.Obats.FindAsync(obatMasuk.ObatId);
                 if (obat != null)
                 {
+                    // Update stok
+                    var oldStok = obat.Stok;
                     obat.Stok += obatMasuk.JumlahMasuk;
+
+                    var oldExpiry = obat.TglKadaluarsa;
+                    if (obatMasuk.TglKadaluarsaM < obat.TglKadaluarsa)
+                    {
+                        obat.TglKadaluarsa = obatMasuk.TglKadaluarsaM;
+
+                        // Log perubahan untuk debugging
+                        Console.WriteLine($"FIFO Update: {obat.NamaObat} - Expire date updated from {oldExpiry:dd/MM/yyyy} to {obat.TglKadaluarsa:dd/MM/yyyy}");
+
+                        // Tampilkan notifikasi ke user
+                        Snackbar.Add($"Tanggal kadaluarsa {obat.NamaObat} diupdate ke {obat.TglKadaluarsa:dd/MM/yyyy} (FIFO)", Severity.Info);
+                    }
+
                     await DbContext.SaveChangesAsync();
+
+                    var successMessage = $"Obat masuk berhasil disimpan! " +
+                                       $"Stok {obat.NamaObat}: {oldStok} → {obat.Stok} (+{obatMasuk.JumlahMasuk})";
+
+                    Snackbar.Add(successMessage, Severity.Success);
                 }
 
                 await transaction.CommitAsync();
@@ -102,6 +127,7 @@ namespace SIPOTEK.Components.Pages.Transaksi.ObatMasuk
             {
                 await transaction.RollbackAsync();
                 Snackbar.Add($"Error: {ex.Message}", Severity.Error);
+                Console.WriteLine($"Error in ObatMasuk Create: {ex.Message}");
             }
         }
 

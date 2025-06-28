@@ -74,10 +74,45 @@
                                             </MudChip>
                                         </MudItem>
                                         <MudItem xs="6">
+                                            <MudText Typo="Typo.body2" Color="Color.Secondary">Stok Minimum:</MudText>
+                                            <MudChip T="string" Color="Color.Secondary" Size="Size.Medium" Variant="Variant.Text">
+                                                @Obat.StokMinimum unit
+                                            </MudChip>
+                                        </MudItem>
+                                        <MudItem xs="6">
                                             <MudText Typo="Typo.body2" Color="Color.Secondary">Tanggal Kadaluarsa:</MudText>
                                             <MudChip T="string" Color="@GetExpiryColor()" Size="Size.Medium">
                                                 @Obat.TglKadaluarsa.ToString("dd MMMM yyyy")
                                             </MudChip>
+                                        </MudItem>
+                                    </MudGrid>
+                                </MudCardContent>
+                            </MudCard>
+                        </MudItem>
+
+                        <!-- Status Stok Detail -->
+                        <MudItem xs="12">
+                            <MudCard Outlined="true" Class="mb-4" Style="@GetStockCardStyle()">
+                                <MudCardContent>
+                                    <MudText Typo="Typo.h6" Class="mb-3" Style="color: white;">
+                                        <MudIcon Icon="@Icons.Material.Filled.Inventory" Class="mr-2" />
+                                        Status Stok
+                                    </MudText>
+                                    <MudGrid>
+                                        <MudItem xs="6">
+                                            <MudText Typo="Typo.body1" Style="color: white; font-weight: bold;">
+                                                Stok Saat Ini: @Obat.Stok unit
+                                            </MudText>
+                                        </MudItem>
+                                        <MudItem xs="6">
+                                            <MudText Typo="Typo.body1" Style="color: white;">
+                                                Batas Minimum: @Obat.StokMinimum unit
+                                            </MudText>
+                                        </MudItem>
+                                        <MudItem xs="12">
+                                            <MudText Typo="Typo.body2" Style="color: rgba(255,255,255,0.8);">
+                                                Status: @GetStockStatusMessage()
+                                            </MudText>
                                         </MudItem>
                                     </MudGrid>
                                 </MudCardContent>
@@ -139,12 +174,30 @@
 
     Color GetStockColor()
     {
-        return Obat.Stok switch
+        if (Obat.Stok == 0) return Color.Dark;
+        if (Obat.Stok <= Obat.StokMinimum) return Color.Error;
+        if (Obat.Stok <= (Obat.StokMinimum * 1.5)) return Color.Warning;
+        return Color.Success;
+    }
+
+    string GetStockCardStyle()
+    {
+        var color = GetStockColor() switch
         {
-            <= 10 => Color.Error,
-            <= 30 => Color.Warning,
-            _ => Color.Success
+            Color.Error => "background: linear-gradient(135deg, #f87171 0%, #dc2626 100%);",
+            Color.Warning => "background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);",
+            Color.Success => "background: linear-gradient(135deg, #34d399 0%, #059669 100%);",
+            _ => "background: linear-gradient(135deg, #6b7280 0%, #374151 100%);"
         };
+        return color;
+    }
+
+    string GetStockStatusMessage()
+    {
+        if (Obat.Stok == 0) return "HABIS - Perlu restock segera";
+        if (Obat.Stok <= Obat.StokMinimum) return "KRITIS - Stok di bawah batas minimum";
+        if (Obat.Stok <= (Obat.StokMinimum * 1.5)) return "RENDAH - Mendekati batas minimum";
+        return "NORMAL - Stok dalam kondisi baik";
     }
 
     Color GetExpiryColor()
@@ -161,7 +214,7 @@
     Severity GetAvailabilitySeverity()
     {
         if (Obat.Stok <= 0) return Severity.Error;
-        if (Obat.Stok <= 10) return Severity.Warning;
+        if (Obat.Stok <= Obat.StokMinimum) return Severity.Warning;
         var daysUntilExpiry = (Obat.TglKadaluarsa - DateTime.Now).Days;
         if (daysUntilExpiry <= 30) return Severity.Error;
         return Severity.Success;
@@ -170,12 +223,12 @@
     string GetAvailabilityMessage()
     {
         if (Obat.Stok <= 0) return "Produk sedang tidak tersedia";
-        if (Obat.Stok <= 10) return $"Stok terbatas! Hanya tersisa {Obat.Stok} unit";
+        if (Obat.Stok <= Obat.StokMinimum) return $"Stok di bawah batas minimum! Hanya tersisa {Obat.Stok} unit (min: {Obat.StokMinimum})";
 
         var daysUntilExpiry = (Obat.TglKadaluarsa - DateTime.Now).Days;
         if (daysUntilExpiry <= 30) return "Produk mendekati tanggal kadaluarsa";
 
-        return $"Produk tersedia dengan stok {Obat.Stok} unit";
+        return $"Produk tersedia dengan stok {Obat.Stok} unit (min: {Obat.StokMinimum})";
     }
 
     void Close()

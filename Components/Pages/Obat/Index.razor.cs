@@ -40,14 +40,12 @@ namespace SIPOTEK.Components.Pages.Obat
             return "/images/no-image.png"; // Default image
         }
 
-        Color GetStockColor(int stok)
+        Color GetStockColor(int stok, int stokMinimum)
         {
-            return stok switch
-            {
-                <= 10 => Color.Error,
-                <= 30 => Color.Warning,
-                _ => Color.Success
-            };
+            if (stok == 0) return Color.Dark; // Habis
+            if (stok <= stokMinimum) return Color.Error; // Kritis
+            if (stok <= (stokMinimum * 1.5)) return Color.Warning; // Rendah
+            return Color.Success; // Normal
         }
 
         Color GetExpiryColor(DateTime expiryDate)

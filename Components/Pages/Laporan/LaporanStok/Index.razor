@@ -191,6 +191,7 @@
                     <MudTh><MudTableSortLabel SortBy="new Func<Models.Obat, object>(x=>x.JenisObat)">Jenis</MudTableSortLabel></MudTh>
                     <MudTh><MudTableSortLabel SortBy="new Func<Models.Obat, object>(x=>x.BentukObat)">Bentuk</MudTableSortLabel></MudTh>
                     <MudTh><MudTableSortLabel SortBy="new Func<Models.Obat, object>(x=>x.Stok)">Stok</MudTableSortLabel></MudTh>
+                    <MudTh><MudTableSortLabel SortBy="new Func<Models.Obat, object>(x=>x.StokMinimum)">Stok Min</MudTableSortLabel></MudTh>
                     <MudTh><MudTableSortLabel SortBy="new Func<Models.Obat, object>(x=>x.Harga)">Harga</MudTableSortLabel></MudTh>
                     <MudTh>Nilai Stok</MudTh>
                     <MudTh><MudTableSortLabel SortBy="new Func<Models.Obat, object>(x=>x.TglKadaluarsa)">Kadaluarsa</MudTableSortLabel></MudTh>
@@ -209,8 +210,13 @@
                     <MudTd DataLabel="Jenis">@context.JenisObat</MudTd>
                     <MudTd DataLabel="Bentuk">@context.BentukObat</MudTd>
                     <MudTd DataLabel="Stok">
-                        <MudChip T="string" Color="@GetStockColor(context.Stok)" Size="Size.Small">
+                        <MudChip T="string" Color="@GetStockColor(context.Stok, context.StokMinimum)" Size="Size.Small">
                             @context.Stok
+                        </MudChip>
+                    </MudTd>
+                    <MudTd DataLabel="Stok Min">
+                        <MudChip T="string" Color="Color.Secondary" Size="Size.Small" Variant="Variant.Text">
+                            @context.StokMinimum
                         </MudChip>
                     </MudTd>
                     <MudTd DataLabel="Harga">Rp @context.Harga.ToString("N0")</MudTd>
@@ -226,8 +232,8 @@
                     </MudTd>
                     <MudTd DataLabel="Status">
                         <div>
-                            <MudChip T="string" Color="@GetStockColor(context.Stok)" Size="Size.Small" Class="mb-1">
-                                @GetStockStatus(context.Stok)
+                            <MudChip T="string" Color="@GetStockColor(context.Stok, context.StokMinimum)" Size="Size.Small" Class="mb-1">
+                                @GetStockStatus(context.Stok, context.StokMinimum)
                             </MudChip>
                             <br />
                             <MudChip T="string" Color="@GetExpiryColor(context.TglKadaluarsa)" Size="Size.Small">

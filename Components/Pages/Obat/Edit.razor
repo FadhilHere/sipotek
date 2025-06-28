@@ -143,11 +143,21 @@
                              Class="mb-3"
                              Variant="Variant.Outlined" />
 
-            <MudNumericField @bind-Value="obat.Stok"
-                             Label="Stok"
-                             Min="0"
-                             Class="mb-3"
-                             Variant="Variant.Outlined" />
+            <MudGrid Class="mb-3">
+                <MudItem xs="12" md="6">
+                    <MudNumericField @bind-Value="obat.Stok"
+                                     Label="Stok"
+                                     Min="0"
+                                     Variant="Variant.Outlined" />
+                </MudItem>
+                <MudItem xs="12" md="6">
+                    <MudNumericField @bind-Value="obat.StokMinimum"
+                                     Label="Stok Minimum"
+                                     Min="0"
+                                     Variant="Variant.Outlined"
+                                     HelperText="Sistem akan memberikan notifikasi jika stok mencapai batas ini" />
+                </MudItem>
+            </MudGrid>
 
             <MudDatePicker @bind-Date="tglKadaluarsa"
                            Label="Tanggal Kadaluarsa"

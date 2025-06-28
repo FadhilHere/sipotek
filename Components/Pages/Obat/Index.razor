@@ -30,6 +30,7 @@
                 <MudTh>Produsen</MudTh>
                 <MudTh>Harga</MudTh>
                 <MudTh>Stok</MudTh>
+                <MudTh>Stok Min</MudTh>
                 <MudTh>Tanggal Kadaluarsa</MudTh>
                 <MudTh>Aksi</MudTh>
             </HeaderContent>
@@ -57,8 +58,13 @@
                 <MudTd DataLabel="Produsen">@context.Produsen</MudTd>
                 <MudTd DataLabel="Harga">Rp @context.Harga.ToString("N0")</MudTd>
                 <MudTd DataLabel="Stok">
-                    <MudChip T="string" Color="@GetStockColor(context.Stok)" Size="Size.Small">
+                    <MudChip T="string" Color="@GetStockColor(context.Stok, context.StokMinimum)" Size="Size.Small">
                         @context.Stok
+                    </MudChip>
+                </MudTd>
+                <MudTd DataLabel="Stok Min">
+                    <MudChip T="string" Color="Color.Secondary" Size="Size.Small" Variant="Variant.Text">
+                        @context.StokMinimum
                     </MudChip>
                 </MudTd>
                 <MudTd DataLabel="Tanggal Kadaluarsa">
