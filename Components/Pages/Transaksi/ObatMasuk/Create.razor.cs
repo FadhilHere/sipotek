@@ -22,7 +22,7 @@ namespace SIPOTEK.Components.Pages.Transaksi.ObatMasuk
         DateTime? tglMasuk
         {
             get => obatMasuk.TglMasuk;
-            set => obatMasuk.TglMasuk = value ?? DateTime.Today;
+            set => obatMasuk.TglMasuk = value ?? DateTime.Now;
         }
 
         DateTime? tglKadaluarsaM
@@ -33,7 +33,7 @@ namespace SIPOTEK.Components.Pages.Transaksi.ObatMasuk
 
         protected override async Task OnInitializedAsync()
         {
-            obatMasuk.TglMasuk = DateTime.Today;
+            obatMasuk.TglMasuk = DateTime.Now;
             obatMasuk.TglKadaluarsaM = DateTime.Today.AddYears(1);
             obatMasuk.JumlahMasuk = 0;
             obatMasuk.TotalHarga = 0;
