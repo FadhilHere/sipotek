@@ -310,7 +310,7 @@ img {
     position: relative;
     z-index: 1;
 }
-
+    
     .hero-image img {
         border-radius: var(--border-radius);
         box-shadow: var(--shadow-heavy);
@@ -318,7 +318,7 @@ img {
     }
 
     .hero-image:hover img {
-        transform: scale(1.02);
+        transform: perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1.02) !important;
     }
 
 /* Stats Section */

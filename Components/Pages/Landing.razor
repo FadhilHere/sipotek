@@ -5,404 +5,406 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SIPOTEK - Sistem Informasi Apotek Cipta Mutiara</title>
-    <base href="/" />
-    
-    <!-- Bootstrap 5.3 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- FontAwesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    
-    <!-- Inter Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <link href="/css/landing.css" rel="stylesheet" />
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>SIPOTEK - Sistem Informasi Apotek Cipta Mutiara</title>
+	<base href="/" />
+
+	<!-- Bootstrap 5.3 -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- FontAwesome -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+	<!-- Inter Font -->
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+	<link href="/css/landing.css" rel="stylesheet" />
 </head>
 
 <body>
-    <!-- Navigation -->
-    <nav class="navbar-custom">
-        <div class="container-fluid px-4">
-            <div class="d-flex justify-content-between align-items-center w-100">
-                <a href="#" class="navbar-brand-custom">
-                    <i class="fas fa-pills me-2"></i>SIPOTEK
-                </a>
-                
-                <div class="d-none d-md-flex align-items-center gap-4">
-                    <a href="#home" class="nav-link-custom">Beranda</a>
-                    <a href="#features" class="nav-link-custom">Fitur</a>
-                    <a href="#about" class="nav-link-custom">Tentang</a>
-                    <a href="#contact" class="nav-link-custom">Kontak</a>
-                    <a href="/obat" class="btn-primary-custom">
-                        <i class="fas fa-sign-in-alt me-2"></i>Masuk Sistem
-                    </a>
-                </div>
+	<!-- Navigation -->
+	<nav class="navbar-custom">
+		<div class="container px-4">
+			<div class="d-flex justify-content-between align-items-center w-100">
+				<a href="#" class="navbar-brand-custom">
+					<i class="fas fa-pills me-2"></i>SIPOTEK
+				</a>
 
-                <!-- Mobile menu button -->
-                <button class="btn d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#mobileMenu">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
-            
-            <!-- Mobile menu -->
-            <div class="collapse" id="mobileMenu">
-                <div class="pt-3 pb-2">
-                    <a href="#home" class="nav-link-custom d-block py-2">Beranda</a>
-                    <a href="#features" class="nav-link-custom d-block py-2">Fitur</a>
-                    <a href="#about" class="nav-link-custom d-block py-2">Tentang</a>
-                    <a href="#contact" class="nav-link-custom d-block py-2">Kontak</a>
-                    <a href="/obat" class="btn-primary-custom d-block mt-2 text-center">Masuk Sistem</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+				<div class="d-none d-md-flex align-items-center gap-4">
+					<a href="#home" class="nav-link-custom">Beranda</a>
+					<a href="#features" class="nav-link-custom">Fitur</a>
+					<a href="#about" class="nav-link-custom">Tentang</a>
+					<a href="#contact" class="nav-link-custom">Kontak</a>
+					<a href="/obat" class="btn-primary-custom">
+						<i class="fas fa-sign-in-alt me-2"></i>Masuk Sistem
+					</a>
+				</div>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero-section">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <div class="hero-content fade-in-up">
-                        <h1 class="hero-title">
-                            Leverage our end-to-end<br>
-                            <span style="color: var(--primary-green);">Pharmacy Management</span>
-                        </h1>
-                        <p class="hero-subtitle">
-                            Kami fokus menyediakan sistem informasi apotek kelas dunia dan layanan manajemen. 
-                            Sistem manajemen apotek berkinerja tinggi kami didukung oleh ahli bersertifikat dan 
-                            bekerja secara resmi dengan teknologi terpercaya seperti Blazor dan SQL Server.
-                        </p>
-                        <div class="hero-buttons">
-                            <a href="#features" class="btn-primary-custom">
-                                <i class="fas fa-rocket me-2"></i>Pelajari Lebih Lanjut
-                            </a>
-                            <a href="#contact" class="btn-outline-custom">
-                                <i class="fas fa-phone me-2"></i>Hubungi Kami
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="position-relative">
-                        <img src="/image/hero.jpg" 
-                             alt="Modern Pharmacy" class="img-fluid rounded-4 shadow-lg">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+				<!-- Mobile menu button -->
+				<button class="btn d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#mobileMenu">
+					<i class="fas fa-bars"></i>
+				</button>
+			</div>
 
-    <!-- Stats Section -->
-    <section class="stats-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-6">
-                    <div class="stat-item fade-in-up">
-                        <div class="stat-number">7+</div>
-                        <div class="stat-label">Tahun Pengalaman</div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <div class="stat-item fade-in-up">
-                        <div class="stat-number">1200+</div>
-                        <div class="stat-label">Jenis Obat</div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <div class="stat-item fade-in-up">
-                        <div class="stat-number">5000+</div>
-                        <div class="stat-label">Pelanggan Puas</div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <div class="stat-item fade-in-up">
-                        <div class="stat-number">24/7</div>
-                        <div class="stat-label">Sistem Tersedia</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+			<!-- Mobile menu -->
+			<div class="collapse" id="mobileMenu">
+				<div class="pt-3 pb-2">
+					<a href="#home" class="nav-link-custom d-block py-2">Beranda</a>
+					<a href="#features" class="nav-link-custom d-block py-2">Fitur</a>
+					<a href="#about" class="nav-link-custom d-block py-2">Tentang</a>
+					<a href="#contact" class="nav-link-custom d-block py-2">Kontak</a>
+					<a href="/obat" class="btn-primary-custom d-block mt-2 text-center">Masuk Sistem</a>
+				</div>
+			</div>
+		</div>
+	</nav>
 
-    <!-- Features Section -->
-    <section id="features" class="features-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h2 class="section-title fade-in-up">Kelola Infrastruktur Apotek Anda!</h2>
-                    <p class="section-subtitle fade-in-up">
-                        Apapun yang ingin Anda lakukan di apotek mana pun, kami dapat mengelola semuanya untuk Anda.
-                    </p>
-                </div>
-            </div>
-            <div class="row g-4">
-                <div class="col-lg-4 col-md-6">
-                    <div class="feature-card fade-in-up">
-                        <div class="feature-icon">
-                            <i class="fas fa-boxes"></i>
-                        </div>
-                        <h3 class="feature-title">Manajemen Stok Real-time</h3>
-                        <p class="feature-description">
-                            Kelola stok obat dengan sistem monitoring real-time, notifikasi otomatis untuk stok minimum, 
-                            dan tracking tanggal kadaluarsa yang akurat.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="feature-card fade-in-up">
-                        <div class="feature-icon">
-                            <i class="fas fa-cash-register"></i>
-                        </div>
-                        <h3 class="feature-title">Transaksi Cepat & Akurat</h3>
-                        <p class="feature-description">
-                            Proses transaksi penjualan yang cepat dengan perhitungan otomatis, 
-                            riwayat lengkap, dan generate nomor transaksi otomatis.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="feature-card fade-in-up">
-                        <div class="feature-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <h3 class="feature-title">Laporan & Analitik</h3>
-                        <p class="feature-description">
-                            Dashboard analitik lengkap dengan laporan penjualan, stok, dan insight bisnis 
-                            yang dapat diexport ke Excel dan PDF.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="feature-card fade-in-up">
-                        <div class="feature-icon">
-                            <i class="fas fa-bell"></i>
-                        </div>
-                        <h3 class="feature-title">Notifikasi Pintar</h3>
-                        <p class="feature-description">
-                            Sistem notifikasi otomatis untuk stok rendah, obat mendekati kadaluarsa, 
-                            dan aktivitas transaksi harian.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="feature-card fade-in-up">
-                        <div class="feature-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <h3 class="feature-title">Keamanan Data</h3>
-                        <p class="feature-description">
-                            Sistem keamanan berlapis dengan enkripsi data, backup otomatis, 
-                            dan kontrol akses berdasarkan role pengguna.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="feature-card fade-in-up">
-                        <div class="feature-icon">
-                            <i class="fas fa-mobile-alt"></i>
-                        </div>
-                        <h3 class="feature-title">Responsif & Modern</h3>
-                        <p class="feature-description">
-                            Interface modern dan responsif yang dapat diakses dari berbagai device 
-                            dengan performa optimal dan user experience terbaik.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+	<!-- Hero Section -->
+	<section id="home" class="hero-section">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-6">
+					<div class="hero-content fade-in-up">
+						<h1 class="hero-title">
+							Leverage our end-to-end<br>
+							<span style="color: var(--primary-green);">Pharmacy Management</span>
+						</h1>
+						<p class="hero-subtitle">
+							Kami fokus menyediakan sistem informasi apotek kelas dunia dan layanan manajemen.
+							Sistem manajemen apotek berkinerja tinggi kami didukung oleh ahli bersertifikat dan
+							bekerja secara resmi dengan teknologi terpercaya seperti Blazor dan SQL Server.
+						</p>
+						<div class="hero-buttons">
+							<a href="#features" class="btn-primary-custom">
+								<i class="fas fa-rocket me-2"></i>Pelajari Lebih Lanjut
+							</a>
+							<a href="#contact" class="btn-outline-custom">
+								<i class="fas fa-phone me-2"></i>Hubungi Kami
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="position-relative" style="display: flex; justify-content: flex-end; padding-left: 2rem;">
+						<img src="/image/hero.jpg"
+							 alt="Modern Pharmacy"
+							 class="img-fluid rounded-4 shadow-lg"
+							 style="transform: perspective(1000px) rotateY(-5deg) rotateX(2deg); width: 120%; max-width: 650px; height: auto;">
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
-    <!-- About Section -->
-    <section id="about" class="about-section">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6 mb-4">
-                    <div class="about-image fade-in-up">
-                        <img src="/image/hero.jpg" 
-                             alt="Apotek Cipta Mutiara" class="img-fluid">
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="fade-in-up">
-                        <h2 class="section-title text-start mb-4">Tentang Apotek Cipta Mutiara</h2>
-                        <p class="hero-subtitle text-start">
-                            Apotek Cipta Mutiara telah melayani masyarakat Pekanbaru sejak tahun 2018 
-                            dengan komitmen memberikan pelayanan kesehatan terbaik.
-                        </p>
-                        
-                        <div class="row mb-4">
-                            <div class="col-md-6 mb-3">
-                                <div class="d-flex align-items-center">
-                                    <div class="contact-icon me-3">
-                                        <i class="fas fa-certificate"></i>
-                                    </div>
-                                    <div>
-                                        <h6 class="mb-0">Berlisensi Resmi</h6>
-                                        <small class="text-muted">Izin: 440/441/SI-Apt/V/2010/04</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="d-flex align-items-center">
-                                    <div class="contact-icon me-3">
-                                        <i class="fas fa-user-md"></i>
-                                    </div>
-                                    <div>
-                                        <h6 class="mb-0">Apoteker Profesional</h6>
-                                        <small class="text-muted">Tenaga ahli berpengalaman</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <p class="feature-description">
-                            Dengan sistem informasi SIPOTEK yang canggih, kami menghadirkan pelayanan yang lebih cepat, 
-                            akurat, dan terpercaya untuk memenuhi kebutuhan kesehatan masyarakat.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+	<!-- Stats Section -->
+	<section class="stats-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-6">
+					<div class="stat-item fade-in-up">
+						<div class="stat-number">7+</div>
+						<div class="stat-label">Tahun Pengalaman</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-6">
+					<div class="stat-item fade-in-up">
+						<div class="stat-number">1200+</div>
+						<div class="stat-label">Jenis Obat</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-6">
+					<div class="stat-item fade-in-up">
+						<div class="stat-number">5000+</div>
+						<div class="stat-label">Pelanggan Puas</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-6">
+					<div class="stat-item fade-in-up">
+						<div class="stat-number">24/7</div>
+						<div class="stat-label">Sistem Tersedia</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h2 class="section-title fade-in-up">Hubungi Kami</h2>
-                    <p class="section-subtitle fade-in-up">
-                        Kami siap melayani kebutuhan kesehatan Anda dengan sistem terbaik
-                    </p>
-                </div>
-            </div>
-            <div class="row g-4">
-                <div class="col-lg-4 col-md-6">
-                    <div class="contact-card fade-in-up">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <h5>Alamat</h5>
-                        <p>Jl. Cipta Karya, Sidomulyo Barat<br>Kec. Tampan, Kota Pekanbaru<br>Riau, Indonesia</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="contact-card fade-in-up">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <h5>Telepon</h5>
-                        <p>+62 761 123456<br>+62 812 3456 7890</p>
-                        <small class="text-muted">Buka: 07:00 - 22:00 WIB</small>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="contact-card fade-in-up">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <h5>Email</h5>
-                        <p>info@ciptamutiara.com<br>apotek@ciptamutiara.com</p>
-                        <small class="text-muted">Respon dalam 24 jam</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+	<!-- Features Section -->
+	<section id="features" class="features-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<h2 class="section-title fade-in-up">Kelola Infrastruktur Apotek Anda!</h2>
+					<p class="section-subtitle fade-in-up">
+						Apapun yang ingin Anda lakukan di apotek mana pun, kami dapat mengelola semuanya untuk Anda.
+					</p>
+				</div>
+			</div>
+			<div class="row g-4">
+				<div class="col-lg-4 col-md-6">
+					<div class="feature-card fade-in-up">
+						<div class="feature-icon">
+							<i class="fas fa-boxes"></i>
+						</div>
+						<h3 class="feature-title">Manajemen Stok Real-time</h3>
+						<p class="feature-description">
+							Kelola stok obat dengan sistem monitoring real-time, notifikasi otomatis untuk stok minimum,
+							dan tracking tanggal kadaluarsa yang akurat.
+						</p>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<div class="feature-card fade-in-up">
+						<div class="feature-icon">
+							<i class="fas fa-cash-register"></i>
+						</div>
+						<h3 class="feature-title">Transaksi Cepat & Akurat</h3>
+						<p class="feature-description">
+							Proses transaksi penjualan yang cepat dengan perhitungan otomatis,
+							riwayat lengkap, dan generate nomor transaksi otomatis.
+						</p>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<div class="feature-card fade-in-up">
+						<div class="feature-icon">
+							<i class="fas fa-chart-line"></i>
+						</div>
+						<h3 class="feature-title">Laporan & Analitik</h3>
+						<p class="feature-description">
+							Dashboard analitik lengkap dengan laporan penjualan, stok, dan insight bisnis
+							yang dapat diexport ke Excel dan PDF.
+						</p>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<div class="feature-card fade-in-up">
+						<div class="feature-icon">
+							<i class="fas fa-bell"></i>
+						</div>
+						<h3 class="feature-title">Notifikasi Pintar</h3>
+						<p class="feature-description">
+							Sistem notifikasi otomatis untuk stok rendah, obat mendekati kadaluarsa,
+							dan aktivitas transaksi harian.
+						</p>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<div class="feature-card fade-in-up">
+						<div class="feature-icon">
+							<i class="fas fa-shield-alt"></i>
+						</div>
+						<h3 class="feature-title">Keamanan Data</h3>
+						<p class="feature-description">
+							Sistem keamanan berlapis dengan enkripsi data, backup otomatis,
+							dan kontrol akses berdasarkan role pengguna.
+						</p>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<div class="feature-card fade-in-up">
+						<div class="feature-icon">
+							<i class="fas fa-mobile-alt"></i>
+						</div>
+						<h3 class="feature-title">Responsif & Modern</h3>
+						<p class="feature-description">
+							Interface modern dan responsif yang dapat diakses dari berbagai device
+							dengan performa optimal dan user experience terbaik.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
-    <!-- Footer -->
-    <footer class="footer-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 mb-4">
-                    <div class="footer-brand">
-                        <i class="fas fa-pills me-2"></i>SIPOTEK
-                    </div>
-                    <p class="text-light">
-                        Sistem Informasi Apotek Cipta Mutiara - Solusi digital untuk pelayanan kesehatan 
-                        yang lebih baik dan terpercaya.
-                    </p>
-                </div>
-                <div class="col-lg-4 mb-4">
-                    <h6 class="text-white mb-3">Jam Operasional</h6>
-                    <div class="text-light">
-                        <p class="mb-1"><i class="fas fa-clock me-2"></i>Senin - Minggu: 07:00 - 22:00</p>
-                        <p class="mb-1"><i class="fas fa-phone me-2"></i>Emergency: 24 Jam</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 mb-4">
-                    <h6 class="text-white mb-3">Ikuti Kami</h6>
-                    <div class="d-flex gap-3">
-                        <a href="#" class="text-light fs-4"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-light fs-4"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-light fs-4"><i class="fab fa-whatsapp"></i></a>
-                    </div>
-                </div>
-            </div>
-            <hr class="text-light">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <p class="text-light mb-0">&copy; 2024 SIPOTEK - Apotek Cipta Mutiara. All rights reserved.</p>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <p class="text-light mb-0">Dikembangkan dengan ❤️ untuk pelayanan kesehatan terbaik</p>
-                </div>
-            </div>
-        </div>
-    </footer>
+	<!-- About Section -->
+	<section id="about" class="about-section">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-6 mb-4">
+					<div class="about-image fade-in-up">
+						<img src="/image/hero.jpg"
+							 alt="Apotek Cipta Mutiara" class="img-fluid">
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="fade-in-up">
+						<h2 class="section-title text-start mb-4">Tentang Apotek Cipta Mutiara</h2>
+						<p class="hero-subtitle text-start">
+							Apotek Cipta Mutiara telah melayani masyarakat Pekanbaru sejak tahun 2018
+							dengan komitmen memberikan pelayanan kesehatan terbaik.
+						</p>
 
-    <!-- JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="_framework/blazor.web.js"></script>
-    <script src="/js/landing.js"></script>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Smooth scrolling
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        const offsetTop = target.offsetTop - 80;
-                        window.scrollTo({
-                            top: offsetTop,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
+						<div class="row mb-4">
+							<div class="col-md-6 mb-3">
+								<div class="d-flex align-items-center">
+									<div class="contact-icon me-3">
+										<i class="fas fa-certificate"></i>
+									</div>
+									<div>
+										<h6 class="mb-0">Berlisensi Resmi</h6>
+										<small class="text-muted">Izin: 440/441/SI-Apt/V/2010/04</small>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6 mb-3">
+								<div class="d-flex align-items-center">
+									<div class="contact-icon me-3">
+										<i class="fas fa-user-md"></i>
+									</div>
+									<div>
+										<h6 class="mb-0">Apoteker Profesional</h6>
+										<small class="text-muted">Tenaga ahli berpengalaman</small>
+									</div>
+								</div>
+							</div>
+						</div>
 
-            // Scroll animations
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
+						<p class="feature-description">
+							Dengan sistem informasi SIPOTEK yang canggih, kami menghadirkan pelayanan yang lebih cepat,
+							akurat, dan terpercaya untuk memenuhi kebutuhan kesehatan masyarakat.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                    }
-                });
-            }, observerOptions);
+	<!-- Contact Section -->
+	<section id="contact" class="contact-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<h2 class="section-title fade-in-up">Hubungi Kami</h2>
+					<p class="section-subtitle fade-in-up">
+						Kami siap melayani kebutuhan kesehatan Anda dengan sistem terbaik
+					</p>
+				</div>
+			</div>
+			<div class="row g-4">
+				<div class="col-lg-4 col-md-6">
+					<div class="contact-card fade-in-up">
+						<div class="contact-icon">
+							<i class="fas fa-map-marker-alt"></i>
+						</div>
+						<h5>Alamat</h5>
+						<p>Jl. Cipta Karya, Sidomulyo Barat<br>Kec. Tampan, Kota Pekanbaru<br>Riau, Indonesia</p>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<div class="contact-card fade-in-up">
+						<div class="contact-icon">
+							<i class="fas fa-phone"></i>
+						</div>
+						<h5>Telepon</h5>
+						<p>+62 761 123456<br>+62 812 3456 7890</p>
+						<small class="text-muted">Buka: 07:00 - 22:00 WIB</small>
+					</div>
+				</div>
+				<div class="col-lg-4 col-md-6">
+					<div class="contact-card fade-in-up">
+						<div class="contact-icon">
+							<i class="fas fa-envelope"></i>
+						</div>
+						<h5>Email</h5>
+						<p>info@ciptamutiara.com<br>apotek@ciptamutiara.com</p>
+						<small class="text-muted">Respon dalam 24 jam</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
-            document.querySelectorAll('.fade-in-up').forEach(el => {
-                observer.observe(el);
-            });
+	<!-- Footer -->
+	<footer class="footer-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4 mb-4">
+					<div class="footer-brand">
+						<i class="fas fa-pills me-2"></i>SIPOTEK
+					</div>
+					<p class="text-light">
+						Sistem Informasi Apotek Cipta Mutiara - Solusi digital untuk pelayanan kesehatan
+						yang lebih baik dan terpercaya.
+					</p>
+				</div>
+				<div class="col-lg-4 mb-4">
+					<h6 class="text-white mb-3">Jam Operasional</h6>
+					<div class="text-light">
+						<p class="mb-1"><i class="fas fa-clock me-2"></i>Senin - Minggu: 07:00 - 22:00</p>
+						<p class="mb-1"><i class="fas fa-phone me-2"></i>Emergency: 24 Jam</p>
+					</div>
+				</div>
+				<div class="col-lg-4 mb-4">
+					<h6 class="text-white mb-3">Ikuti Kami</h6>
+					<div class="d-flex gap-3">
+						<a href="#" class="text-light fs-4"><i class="fab fa-facebook-f"></i></a>
+						<a href="#" class="text-light fs-4"><i class="fab fa-instagram"></i></a>
+						<a href="#" class="text-light fs-4"><i class="fab fa-whatsapp"></i></a>
+					</div>
+				</div>
+			</div>
+			<hr class="text-light">
+			<div class="row align-items-center">
+				<div class="col-md-6">
+					<p class="text-light mb-0">&copy; 2024 SIPOTEK - Apotek Cipta Mutiara. All rights reserved.</p>
+				</div>
+				<div class="col-md-6 text-md-end">
+					<p class="text-light mb-0">Dikembangkan dengan ❤️ untuk pelayanan kesehatan terbaik</p>
+				</div>
+			</div>
+		</div>
+	</footer>
 
-            // Initialize first elements
-            setTimeout(() => {
-                document.querySelectorAll('.fade-in-up').forEach((el, index) => {
-                    if (index < 3) {
-                        el.classList.add('active');
-                    }
-                });
-            }, 100);
-        });
-    </script>
+	<!-- JavaScript -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="_framework/blazor.web.js"></script>
+	<script src="/js/landing.js"></script>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			// Smooth scrolling
+			document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+				anchor.addEventListener('click', function (e) {
+					e.preventDefault();
+					const target = document.querySelector(this.getAttribute('href'));
+					if (target) {
+						const offsetTop = target.offsetTop - 80;
+						window.scrollTo({
+							top: offsetTop,
+							behavior: 'smooth'
+						});
+					}
+				});
+			});
+
+			// Scroll animations
+			const observerOptions = {
+				threshold: 0.1,
+				rootMargin: '0px 0px -50px 0px'
+			};
+
+			const observer = new IntersectionObserver(function (entries) {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('active');
+					}
+				});
+			}, observerOptions);
+
+			document.querySelectorAll('.fade-in-up').forEach(el => {
+				observer.observe(el);
+			});
+
+			// Initialize first elements
+			setTimeout(() => {
+				document.querySelectorAll('.fade-in-up').forEach((el, index) => {
+					if (index < 3) {
+						el.classList.add('active');
+					}
+				});
+			}, 100);
+		});
+	</script>
 </body>
 </html>
