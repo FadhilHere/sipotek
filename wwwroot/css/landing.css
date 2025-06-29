@@ -720,3 +720,142 @@ img {
         animation: none;
     }
 }
+
+/* Products Section */
+.products-section {
+    padding: 6rem 0;
+    background: var(--bg-light);
+}
+
+.search-box .input-group-text {
+    background: var(--white);
+    border-color: #e0e0e0;
+    color: var(--text-gray);
+}
+
+.search-box .form-control {
+    border-color: #e0e0e0;
+    padding: 0.75rem 1rem;
+}
+
+.items-per-page label {
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+}
+
+.product-card {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: var(--transition-smooth);
+    height: 100%;
+    overflow: hidden;
+}
+
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-medium);
+    }
+
+.product-image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+    .product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition-smooth);
+    }
+
+.product-card:hover .product-image img {
+    transform: scale(1.05);
+}
+
+.product-status {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: white;
+}
+
+    .product-status.text-success {
+        background: #28a745;
+    }
+
+    .product-status.text-warning {
+        background: #ffc107;
+        color: #212529 !important;
+    }
+
+    .product-status.text-danger {
+        background: #dc3545;
+    }
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.product-category {
+    margin-bottom: 0.75rem;
+}
+
+.product-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+}
+
+.product-producer {
+    font-size: 0.875rem;
+    color: var(--text-gray);
+    margin-bottom: 0.75rem;
+    font-style: italic;
+}
+
+.product-description {
+    font-size: 0.875rem;
+    color: var(--text-gray);
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+
+.product-price {
+    margin-bottom: 0.75rem;
+}
+
+    .product-price .price {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--primary-green);
+    }
+
+.product-stock {
+    font-size: 0.875rem;
+    color: var(--text-gray);
+    font-weight: 500;
+}
+
+.pagination-info {
+    padding: 1rem 0;
+}
+
+@media (max-width: 768px) {
+    .product-card .card-body {
+        padding: 1rem;
+    }
+
+    .product-name {
+        font-size: 1rem;
+    }
+}
