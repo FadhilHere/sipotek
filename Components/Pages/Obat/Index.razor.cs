@@ -37,15 +37,15 @@ namespace SIPOTEK.Components.Pages.Obat
             {
                 return FileUploadService.GetImageUrl(obat.GambarFileName);
             }
-            return "/images/no-image.png"; // Default image
+            return "/images/no-image.png";
         }
 
         Color GetStockColor(int stok, int stokMinimum)
         {
-            if (stok == 0) return Color.Dark; // Habis
-            if (stok <= stokMinimum) return Color.Error; // Kritis
-            if (stok <= (stokMinimum * 1.5)) return Color.Warning; // Rendah
-            return Color.Success; // Normal
+            if (stok == 0) return Color.Dark;
+            if (stok <= stokMinimum) return Color.Error;
+            if (stok <= (stokMinimum * 1.5)) return Color.Warning;
+            return Color.Success;
         }
 
         Color GetExpiryColor(DateTime expiryDate)
