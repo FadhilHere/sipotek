@@ -12,6 +12,7 @@ namespace SIPOTEK.Data
         public DbSet<Obat> Obats { get; set; }
         public DbSet<ObatMasuk> ObatMasuks { get; set; }
         public DbSet<ObatKeluar> ObatKeluars { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,7 +29,7 @@ namespace SIPOTEK.Data
                 .WithMany()
                 .HasForeignKey(ok => ok.ObatId);
 
-            // Seed data
+            // Existing seed data for Obat
             modelBuilder.Entity<Obat>().HasData(
                 new Obat
                 {
@@ -38,6 +39,7 @@ namespace SIPOTEK.Data
                     BentukObat = "Tablet",
                     Harga = 6000,
                     Stok = 20,
+                    StokMinimum = 10,
                     TglKadaluarsa = new DateTime(2026, 5, 15)
                 },
                 new Obat
@@ -48,6 +50,7 @@ namespace SIPOTEK.Data
                     BentukObat = "Kapsul",
                     Harga = 8000,
                     Stok = 30,
+                    StokMinimum = 10,
                     TglKadaluarsa = new DateTime(2026, 6, 16)
                 },
                 new Obat
@@ -58,6 +61,7 @@ namespace SIPOTEK.Data
                     BentukObat = "Sirup",
                     Harga = 18000,
                     Stok = 40,
+                    StokMinimum = 10,
                     TglKadaluarsa = new DateTime(2026, 6, 17)
                 }
             );
