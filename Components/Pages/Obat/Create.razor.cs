@@ -51,8 +51,6 @@ namespace SIPOTEK.Components.Pages.Obat
             previewImageUrl = "";
             StateHasChanged();
         }
-
-        // FUNCTION INI YANG KURANG - SAMA SEPERTI DI EDIT
         void RemoveCurrentImage()
         {
             selectedFile = null;
@@ -104,7 +102,6 @@ namespace SIPOTEK.Components.Pages.Obat
 
         async Task Submit()
         {
-            // Basic validation
             if (string.IsNullOrWhiteSpace(obat.NamaObat))
             {
                 Snackbar.Add("Nama obat harus diisi!", Severity.Warning);

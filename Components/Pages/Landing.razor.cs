@@ -26,7 +26,7 @@ namespace SIPOTEK.Components.Pages
             try
             {
                 obatList = await DbContext.Obats
-                    .Where(o => o.Stok > 0) // Only show available stock
+                    .Where(o => o.Stok > 0)
                     .OrderBy(o => o.NamaObat)
                     .ToListAsync();
 
