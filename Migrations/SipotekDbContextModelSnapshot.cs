@@ -188,20 +188,6 @@ namespace SIPOTEK.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastLogin")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("NamaLengkap")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -220,6 +206,22 @@ namespace SIPOTEK.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Password = "admin123",
+                            Role = "Admin",
+                            Username = "admin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Password = "apoteker123",
+                            Role = "Apoteker",
+                            Username = "apoteker"
+                        });
                 });
 
             modelBuilder.Entity("SIPOTEK.Models.ObatKeluar", b =>

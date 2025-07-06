@@ -133,7 +133,7 @@ namespace SIPOTEK.Components.Pages.Transaksi.ObatMasuk
 
         void Cancel()
         {
-            MudDialog.Close();
+            MudDialog.Cancel();
         }
     }
 }

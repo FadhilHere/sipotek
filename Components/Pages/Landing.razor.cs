@@ -31,7 +31,9 @@ namespace SIPOTEK.Components.Pages
                     .ToListAsync();
 
                 filteredObatList = obatList;
-            }
+
+				ApplyPagination();
+			}
             catch (Exception ex)
             {
                 Console.WriteLine($"Error loading obat data: {ex.Message}");
