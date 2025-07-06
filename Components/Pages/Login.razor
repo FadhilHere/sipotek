@@ -1,0 +1,55 @@
+﻿@page "/login"
+@layout Layout.EmptyLayout
+@inject LoginService LoginService
+@inject AppState AppState
+@inject NavigationManager Nav
+
+<div class="d-flex justify-content-center align-items-center vh-100 bg-light">
+    <div class="card shadow p-4" style="width: 400px;">
+        <div class="text-center mb-4">
+            <img src="https://cdn-icons-png.flaticon.com/512/2920/2920101.png" alt="Login Icon" width="80" />
+            <h4 class="mt-3">Login ke <span class="text-primary">SIPOTEK</span></h4>
+            <p class="text-muted">Masukkan kredensial Anda</p>
+        </div>
+
+        @if (!string.IsNullOrEmpty(ErrorMessage))
+        {
+            <div class="alert alert-danger">@ErrorMessage</div>
+        }
+
+        <div class="form-group mb-3">
+            <label class="form-label">Username</label>
+            <input class="form-control" placeholder="Masukkan username" @bind="Username" />
+        </div>
+        <div class="form-group mb-3">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-control" placeholder="Masukkan password" @bind="Password" />
+        </div>
+        <button class="btn btn-primary w-100" @onclick="HandleLogin">Login</button>
+
+        <div class="text-center mt-3">
+            <small class="text-muted">Belum punya akun? Hubungi admin</small>
+        </div>
+    </div>
+</div>
+
+@code {
+    private string Username = string.Empty;
+    private string Password = string.Empty;
+    private string ErrorMessage = string.Empty;
+
+    private async Task HandleLogin()
+    {
+        var user = await LoginService.AuthenticateAsync(Username, Password);
+        if (user != null)
+        {
+            AppState.IsLoggedIn = true;
+            AppState.CurrentUser = user;
+            Nav.NavigateTo("/dashboard");
+        }
+        else
+        {
+            ErrorMessage = "Username atau password salah.";
+        }
+    }
+}

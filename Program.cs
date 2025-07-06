@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using MudBlazor.Services;
 using SIPOTEK.Components;
@@ -11,6 +12,8 @@ namespace SIPOTEK
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddScoped<LoginService>();
+            builder.Services.AddScoped<AppState>();
 
 
             builder.Services.AddMudServices();
